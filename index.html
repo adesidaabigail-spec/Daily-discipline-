@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Daily Discipline"/>
+<title>Daily Discipline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;background:#0a0a0f;color:#e2e8f0;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:4px;}
+  ::-webkit-scrollbar-thumb{background:#2d2d3a;border-radius:4px;}
+  button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;outline:none;}
+  input,select{font-family:'DM Sans',sans-serif;outline:none;}
+  select option{background:#1a1a2e;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .fade-in{animation:fadeIn 0.3s ease forwards;}
+  #header{background:linear-gradient(180deg,#0f0f1a 0%,#0a0a0f 100%);border-bottom:1px solid rgba(255,255,255,0.06);padding:env(safe-area-inset-top,20px) 20px 20px;position:sticky;top:0;z-index:100;}
+  .header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .app-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f8fafc,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .app-date{color:#475569;font-size:12px;margin-top:3px;}
+  .ring-wrap{position:relative;width:64px;height:64px;}
+  .ring-svg{transform:rotate(-90deg);}
+  .ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+  .week-stat{text-align:center;}
+  .week-stat-label{font-size:11px;color:#475569;margin-bottom:2px;}
+  .week-stat-val{font-size:20px;font-weight:700;color:#818cf8;}
+  .week-stat-sub{font-size:10px;color:#475569;}
+  .cat-pills{display:flex;gap:6px;margin-top:16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+  .cat-pills::-webkit-scrollbar{display:none;}
+  .pill{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;transition:all 0.2s;cursor:pointer;border:1px solid transparent;}
+  #main{max-width:1100px;margin:0 auto;padding:20px 16px 80px;}
+  .view-tabs{display:flex;gap:4px;background:rgba(255,255,255,0.05);padding:4px;border-radius:24px;}
+  .view-tab{padding:7px 18px;border-radius:20px;font-size:13px;font-weight:600;transition:all 0.2s;color:#64748b;background:transparent;letter-spacing:0.3px;}
+  .view-tab.active{background:#818cf8;color:#fff;}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;}
+  .add-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;background:rgba(129,140,248,0.15);color:#818cf8;border:1px solid rgba(129,140,248,0.3);font-size:13px;font-weight:600;}
+  .nav-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;border-radius:8px;padding:7px 14px;font-size:13px;}
+  #add-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:18px;margin-bottom:18px;display:none;}
+  #add-panel.open{display:block;}
+  .add-panel-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#e2e8f0;}
+  .add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .add-icon-input{width:46px;text-align:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;color:#e2e8f0;font-size:18px;}
+  .add-name-input{flex:1;min-width:140px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;color:#e2e8f0;font-size:14px;}
+  .add-name-input::placeholder{color:#475569;}
+  .add-cat-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;color:#e2e8f0;font-size:13px;}
+  .btn-save{padding:8px 18px;border-radius:8px;background:#818cf8;color:#fff;font-size:13px;font-weight:600;}
+  .btn-cancel{padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.06);color:#64748b;font-size:13px;}
+  .week-grid{background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;}
+  .week-header-row{display:grid;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .week-col-label{padding:10px 14px;font-size:10px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;}
+  .week-day-col{padding:8px 4px;text-align:center;}
+  .week-day-name{font-size:10px;font-weight:600;text-transform:uppercase;}
+  .week-day-num{font-size:13px;font-weight:700;margin-top:2px;}
+  .week-skin{font-size:9px;margin-top:3px;line-height:1.2;padding:0 2px;}
+  .cat-header-row{display:grid;background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.04);}
+  .cat-label-cell{padding:6px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+  .cat-count-cell{padding:6px 4px;text-align:center;font-size:10px;font-weight:600;}
+  .habit-row-grid{display:grid;border-top:1px solid rgba(255,255,255,0.03);transition:background 0.15s;}
+  .habit-name-cell{padding:9px 14px;display:flex;align-items:center;gap:8px;min-width:0;}
+  .habit-icon-span{font-size:15px;flex-shrink:0;}
+  .habit-name-text{font-size:12px;color:#cbd5e1;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .habit-streak{font-size:10px;margin-top:1px;}
+  .del-btn{opacity:0;background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 5px;font-size:10px;cursor:pointer;transition:opacity 0.15s;flex-shrink:0;}
+  .habit-row-grid:hover .del-btn{opacity:1;}
+  .check-cell{display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.15s;}
+  .check-cell:active{transform:scale(0.9);}
+  .check-box{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.15s;}
+  .progress-bar-wrap{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px 18px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.06);}
+  .progress-meta{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:#64748b;}
+  .progress-track{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:3px;transition:width 0.4s ease;}
+  .skin-card{border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+  .cat-section{margin-bottom:14px;}
+  .cat-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+  .daily-habit-list{background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.05);overflow:hidden;}
+  .daily-habit-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid rgba(255,255,255,0.04);cursor:pointer;}
+  .daily-habit-row:first-child{border-top:none;}
+  .daily-habit-row:active{background:rgba(255,255,255,0.04);}
+  .daily-check{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s;flex-shrink:0;}
+  .daily-habit-name{font-size:13px;font-weight:500;}
+  .daily-done-label{font-size:11px;font-weight:600;margin-left:auto;}
+  .month-habit-card{margin-bottom:14px;background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.06);padding:12px 14px;}
+  .month-habit-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .month-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+  .month-day-label{font-size:9px;text-align:center;color:#334155;font-weight:600;padding-bottom:3px;}
+  .month-day-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:10px;font-weight:600;transition:all 0.15s;cursor:pointer;border:1.5px solid transparent;}
+  .month-day-cell:active{transform:scale(0.9);}
+  .tonight-banner{margin-top:10px;display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:6px 12px;}
+  @media(min-width:768px){
+    #header{padding-top:28px;padding-left:32px;padding-right:32px;}
+    #main{padding:24px 32px 80px;}
+    .app-title{font-size:30px;}
+    .check-box{width:28px;height:28px;}
+  }
+</style>
+</head>
+<body>
+<div id="header">
+  <div class="header-top">
+    <div>
+      <div class="app-title">Daily Discipline</div>
+      <div class="app-date" id="date-display"></div>
+      <div id="tonight-banner"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <div>
+        <div class="ring-wrap">
+          <svg class="ring-svg" width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="24" fill="none" stroke="#1e2030" stroke-width="5"/>
+            <circle id="ring-progress" cx="32" cy="32" r="24" fill="none" stroke="#818cf8" stroke-width="5" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" style="transition:stroke-dashoffset 0.5s ease"/>
+          </svg>
+          <div class="ring-text" id="ring-pct">0%</div>
+        </div>
+        <div style="font-size:10px;color:#475569;text-align:center;margin-top:3px;" id="today-sub">0/0 today</div>
+      </div>
+      <div class="week-stat">
+        <div class="week-stat-label">This week</div>
+        <div class="week-stat-val" id="week-pct">0%</div>
+        <div class="week-stat-sub" id="week-sub">0/0</div>
+      </div>
+    </div>
+  </div>
+  <div class="cat-pills" id="cat-pills"></div>
+</div>
+<div id="main">
+  <div class="toolbar">
+    <div class="view-tabs" id="view-tabs">
+      <button class="view-tab active" data-view="weekly">Weekly</button>
+      <button class="view-tab" data-view="monthly">Monthly</button>
+      <button class="view-tab" data-view="daily">Daily</button>
+    </div>
+    <button class="add-btn" id="add-habit-btn">+ Add Habit</button>
+  </div>
+  <div id="add-panel">
+    <div class="add-panel-title">New Habit</div>
+    <div class="add-row">
+      <input class="add-icon-input" id="new-icon" value="⭐" maxlength="2"/>
+      <input class="add-name-input" id="new-name" placeholder="Habit name…"/>
+      <select class="add-cat-select" id="new-cat"></select>
+      <button class="btn-save" id="btn-add-save">Add</button>
+      <button class="btn-cancel" id="btn-add-cancel">Cancel</button>
+    </div>
+  </div>
+  <div id="view-content"></div>
+</div>
+<script>
+const DEFAULT_HABITS=[{id:"h1",name:"Drink 2L water",category:"health",icon:"💧",color:"#38bdf8"},{id:"h2",name:"Sleep 7–8 hrs",category:"health",icon:"🌙",color:"#818cf8"},{id:"h4",name:"Vitamins / supplements",category:"health",icon:"💊",color:"#34d399"},{id:"f1",name:"Exercise / workout",category:"fitness",icon:"🏋️",color:"#f87171"},{id:"f2",name:"Walk 8,000+ steps",category:"fitness",icon:"🦶",color:"#fbbf24"},{id:"f3",name:"Stretch / mobility",category:"fitness",icon:"🧘",color:"#a78bfa"},{id:"r1",name:"Morning prayer",category:"religion",icon:"🙏",color:"#fde68a"},{id:"r2​​​​​​​​​​​​​​​​
