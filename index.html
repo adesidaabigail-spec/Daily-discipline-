@@ -32,23 +32,34 @@ select option{background:#1a1a2e;}
 .cat-pills::-webkit-scrollbar{display:none;}
 .pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;border:1px solid transparent;}
 #main{max-width:1100px;margin:0 auto;padding:18px 14px 80px;}
-.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px;flex-wrap:wrap;}
 .view-tabs{display:flex;gap:3px;background:rgba(255,255,255,0.05);padding:3px;border-radius:22px;}
 .view-tab{padding:7px 16px;border-radius:19px;font-size:13px;font-weight:600;color:#64748b;background:transparent;}
 .view-tab.active{background:#818cf8;color:#fff;}
+.toolbar-right{display:flex;gap:8px;align-items:center;}
 .add-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;background:rgba(129,140,248,0.15);color:#818cf8;border:1px solid rgba(129,140,248,0.3);font-size:13px;font-weight:600;white-space:nowrap;}
+.edit-mode-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);font-size:13px;font-weight:600;white-space:nowrap;}
+.edit-mode-btn.active{background:rgba(251,191,36,0.25);border-color:#fbbf24;}
 .nav-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;border-radius:8px;padding:7px 13px;font-size:13px;}
 .nav-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .nav-label{flex:1;text-align:center;font-size:13px;font-weight:600;color:#e2e8f0;}
 #add-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;margin-bottom:16px;display:none;}
 #add-panel.open{display:block;}
+.panel-title{font-size:13px;font-weight:600;margin-bottom:11px;color:#e2e8f0;}
 .add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.add-icon-input{width:44px;text-align:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px;color:#e2e8f0;font-size:18px;}
-.add-name-input{flex:1;min-width:130px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:14px;}
-.add-name-input::placeholder{color:#475569;}
-.add-cat-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:13px;}
+.icon-input{width:44px;text-align:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px;color:#e2e8f0;font-size:18px;}
+.name-input{flex:1;min-width:130px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:14px;}
+.name-input::placeholder{color:#475569;}
+.cat-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:13px;}
 .btn-save{padding:7px 16px;border-radius:8px;background:#818cf8;color:#fff;font-size:13px;font-weight:600;}
 .btn-cancel{padding:7px 12px;border-radius:8px;background:rgba(255,255,255,0.06);color:#64748b;font-size:13px;}
+.btn-danger{padding:7px 12px;border-radius:8px;background:rgba(239,68,68,0.15);color:#ef4444;font-size:13px;font-weight:600;}
+#edit-modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:20px;}
+#edit-modal.open{display:flex;}
+#edit-modal-box{background:#0f0f1a;border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:24px;width:100%;max-width:420px;}
+#edit-modal-title{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:18px;}
+.edit-field{margin-bottom:14px;}
+.edit-label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
 .week-grid{background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;}
 .week-header-row{display:grid;border-bottom:1px solid rgba(255,255,255,0.06);}
 .week-col-label{padding:9px 12px;font-size:10px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;}
@@ -59,14 +70,16 @@ select option{background:#1a1a2e;}
 .cat-header-row{display:grid;background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.04);}
 .cat-label-cell{padding:5px 12px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
 .cat-count-cell{padding:5px 3px;text-align:center;font-size:9px;font-weight:600;}
-.habit-row-g{display:grid;border-top:1px solid rgba(255,255,255,0.03);}
+.habit-row-g{display:grid;border-top:1px solid rgba(255,255,255,0.03);transition:background 0.15s;}
 .habit-row-g:hover{background:rgba(255,255,255,0.03);}
 .habit-name-cell{padding:8px 12px;display:flex;align-items:center;gap:7px;min-width:0;}
 .habit-icon-s{font-size:14px;flex-shrink:0;}
 .habit-name-t{font-size:11px;color:#cbd5e1;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .habit-streak-t{font-size:9px;margin-top:1px;}
-.del-btn{opacity:0;background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 5px;font-size:9px;cursor:pointer;flex-shrink:0;}
-.habit-row-g:hover .del-btn{opacity:1;}
+.action-btns{display:flex;gap:4px;flex-shrink:0;opacity:0;transition:opacity 0.15s;}
+.habit-row-g:hover .action-btns{opacity:1;}
+.edit-btn-sm{background:rgba(251,191,36,0.15);color:#fbbf24;border:none;border-radius:4px;padding:2px 6px;font-size:9px;cursor:pointer;}
+.del-btn-sm{background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 6px;font-size:9px;cursor:pointer;}
 .check-cell{display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .check-cell:active{transform:scale(0.88);}
 .check-box{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;}
@@ -78,9 +91,8 @@ select option{background:#1a1a2e;}
 .cat-section{margin-bottom:13px;}
 .cat-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
 .daily-list{background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.05);overflow:hidden;}
-.daily-row{display:flex;align-items:center;gap:11px;padding:11px 13px;border-top:1px solid rgba(255,255,255,0.04);cursor:pointer;}
+.daily-row{display:flex;align-items:center;gap:11px;padding:11px 13px;border-top:1px solid rgba(255,255,255,0.04);}
 .daily-row:first-child{border-top:none;}
-.daily-row:active{background:rgba(255,255,255,0.04);}
 .daily-check{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
 .daily-done-lbl{font-size:10px;font-weight:600;margin-left:auto;}
 .month-card{margin-bottom:13px;background:rgba(255,255,255,0.02);border-radius:13px;border:1px solid rgba(255,255,255,0.06);padding:11px 13px;}
@@ -88,6 +100,8 @@ select option{background:#1a1a2e;}
 .month-day-lbl{font-size:8px;text-align:center;color:#334155;font-weight:600;padding-bottom:3px;}
 .month-day-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:9px;font-weight:600;cursor:pointer;border:1.5px solid transparent;}
 .month-day-cell:active{transform:scale(0.88);}
+#edit-banner{display:none;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#fbbf24;text-align:center;}
+#edit-banner.visible{display:block;}
 @media(min-width:768px){
   #header{padding-left:28px;padding-right:28px;}
   #main{padding:22px 28px 80px;}
@@ -97,6 +111,30 @@ select option{background:#1a1a2e;}
 </style>
 </head>
 <body>
+
+<div id="edit-modal">
+  <div id="edit-modal-box">
+    <div id="edit-modal-title">Edit Habit</div>
+    <div class="edit-field">
+      <div class="edit-label">Icon</div>
+      <input class="icon-input" id="edit-icon" maxlength="2"/>
+    </div>
+    <div class="edit-field">
+      <div class="edit-label">Name</div>
+      <input class="name-input" id="edit-name" style="width:100%"/>
+    </div>
+    <div class="edit-field">
+      <div class="edit-label">Category</div>
+      <select class="cat-select" id="edit-cat" style="width:100%"></select>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;">
+      <button class="btn-save" id="edit-save-btn" style="flex:1">Save Changes</button>
+      <button class="btn-cancel" id="edit-cancel-btn">Cancel</button>
+      <button class="btn-danger" id="edit-delete-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
 <div id="header">
   <div class="header-row1">
     <div>
@@ -126,6 +164,7 @@ select option{background:#1a1a2e;}
   </div>
   <div class="cat-pills" id="cat-pills"></div>
 </div>
+
 <div id="main">
   <div class="toolbar">
     <div class="view-tabs" id="view-tabs">
@@ -133,20 +172,25 @@ select option{background:#1a1a2e;}
       <button class="view-tab" data-view="monthly">Monthly</button>
       <button class="view-tab" data-view="daily">Daily</button>
     </div>
-    <button class="add-btn" id="add-habit-btn">+ Add Habit</button>
+    <div class="toolbar-right">
+      <button class="edit-mode-btn" id="edit-mode-btn">✏️ Edit</button>
+      <button class="add-btn" id="add-habit-btn">+ Add</button>
+    </div>
   </div>
+  <div id="edit-banner">✏️ Edit mode on — tap any habit to rename, change icon or category</div>
   <div id="add-panel">
-    <div style="font-size:13px;font-weight:600;margin-bottom:11px;color:#e2e8f0">New Habit</div>
+    <div class="panel-title">New Habit</div>
     <div class="add-row">
-      <input class="add-icon-input" id="new-icon" value="&#11088;" maxlength="2"/>
-      <input class="add-name-input" id="new-name" placeholder="Habit name..."/>
-      <select class="add-cat-select" id="new-cat"></select>
+      <input class="icon-input" id="new-icon" value="⭐" maxlength="2"/>
+      <input class="name-input" id="new-name" placeholder="Habit name..."/>
+      <select class="cat-select" id="new-cat"></select>
       <button class="btn-save" id="btn-add-save">Add</button>
       <button class="btn-cancel" id="btn-add-cancel">Cancel</button>
     </div>
   </div>
   <div id="view-content"></div>
 </div>
+
 <script>
 const DEFAULT_HABITS=[
   {id:"h1",name:"Drink 2L water",category:"health",icon:"💧",color:"#38bdf8"},
@@ -223,7 +267,9 @@ const MONTHS=["January","February","March","April","May","June","July","August",
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
 let habits=JSON.parse(localStorage.getItem("dd_habits")||"null")||DEFAULT_HABITS;
 let completions=JSON.parse(localStorage.getItem("dd_completions")||"{}");
-let selectedCat="all",currentView="weekly",weekRef=new Date(TODAY),monthRef={year:TODAY.getFullYear(),month:TODAY.getMonth()},focusDay=dk(TODAY);
+let selectedCat="all",currentView="weekly",editMode=false;
+let weekRef=new Date(TODAY),monthRef={year:TODAY.getFullYear(),month:TODAY.getMonth()},focusDay=dk(TODAY);
+let editingHabitId=null;
 function save(){localStorage.setItem("dd_habits",JSON.stringify(habits));localStorage.setItem("dd_completions",JSON.stringify(completions));}
 function dk(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function todayKey(){return dk(TODAY);}
@@ -232,35 +278,29 @@ function getWeekDates(ref){const d=new Date(ref);d.setHours(0,0,0,0);const sun=n
 function getMonthDates(y,m){const days=[],d=new Date(y,m,1);while(d.getMonth()===m){days.push(new Date(d));d.setDate(d.getDate()+1);}return days;}
 function calcStreak(id){let s=0;const d=new Date(TODAY);while(true){const k=dk(d);if(completions[k]&&completions[k][id]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
 function fh(){return selectedCat==="all"?habits:habits.filter(h=>h.category===selectedCat);}
-function toggle(hid,dateKey){if(isFuture(dateKey))return;if(!completions[dateKey])completions[dateKey]={};completions[dateKey][hid]=!completions[dateKey][hid];if(!completions[dateKey][hid])delete completions[dateKey][hid];if(!Object.keys(completions[dateKey]).length)delete completions[dateKey];save();updateHeader();renderView();}
-function updateHeader(){
-  const tk=todayKey();
-  document.getElementById("date-display").textContent=DAYS[TODAY.getDay()]+", "+MONTHS[TODAY.getMonth()]+" "+TODAY.getDate()+" "+TODAY.getFullYear();
-  const h_=fh(),dt=h_.filter(h=>completions[tk]?.[h.id]).length,tot=h_.length,pct=tot>0?Math.round(dt/tot*100):0,circ=2*Math.PI*22;
-  document.getElementById("ring-progress").setAttribute("stroke-dashoffset",circ*(1-pct/100));
-  document.getElementById("ring-progress").setAttribute("stroke",pct===100?"#4ade80":"#818cf8");
-  document.getElementById("ring-pct").textContent=pct+"%";
-  document.getElementById("ring-pct").style.color=pct===100?"#4ade80":"#e2e8f0";
-  document.getElementById("today-sub").textContent=dt+"/"+tot+" today";
-  const wd=getWeekDates(weekRef),wdn=wd.reduce((s,d)=>{const k=dk(d);return s+h_.filter(h=>completions[k]?.[h.id]).length;},0),wt=wd.length*h_.length,wp=wt>0?Math.round(wdn/wt*100):0;
-  document.getElementById("week-pct").textContent=wp+"%";
-  document.getElementById("week-sub").textContent=wdn+"/"+wt;
-  const sc=SKINCARE[tk],el=document.getElementById("sc-tonight");
-  if(sc){el.innerHTML='<div style="display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:7px 12px;margin-top:10px;background:'+sc.color+'18;border:1px solid '+sc.color+'40"><span style="font-size:14px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight</div><div style="font-size:12px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+'">'+sc.product+'</div><div style="font-size:10px;color:'+sc.color+'">'+sc.series+'</div></div></div>';}
-  else{el.innerHTML="";}
-}
+function toggle(hid,dateKey){if(editMode)return;if(isFuture(dateKey))return;if(!completions[dateKey])completions[dateKey]={};completions[dateKey][hid]=!completions[dateKey][hid];if(!completions[dateKey][hid])delete completions[dateKey][hid];if(!Object.keys(completions[dateKey]).length)delete completions[dateKey];save();updateHeader();renderView();}
+function openEditModal(id){editingHabitId=id;const habit=habits.find(h=>h.id===id);if(!habit)return;document.getElementById("edit-icon").value=habit.icon;document.getElementById("edit-name").value=habit.name;document.getElementById("edit-cat").value=habit.category;document.getElementById("edit-modal").classList.add("open");}
+function closeEditModal(){document.getElementById("edit-modal").classList.remove("open");editingHabitId=null;}
+function saveEditModal(){if(!editingHabitId)return;const icon=document.getElementById("edit-icon").value||"⭐";const name=document.getElementById("edit-name").value.trim();const cat=document.getElementById("edit-cat").value;if(!name)return;habits=habits.map(h=>h.id===editingHabitId?{...h,icon,name,category:cat,color:CATEGORIES[cat].color}:h);save();closeEditModal();renderView();updateHeader();}
+function deleteFromModal(){if(!editingHabitId)return;habits=habits.filter(h=>h.id!==editingHabitId);save();closeEditModal();renderView();updateHeader();}
+document.getElementById("edit-save-btn").onclick=saveEditModal;
+document.getElementById("edit-cancel-btn").onclick=closeEditModal;
+document.getElementById("edit-delete-btn").onclick=deleteFromModal;
+document.getElementById("edit-modal").addEventListener("click",(e)=>{if(e.target===document.getElementById("edit-modal"))closeEditModal();});
+document.getElementById("edit-mode-btn").onclick=()=>{editMode=!editMode;document.getElementById("edit-mode-btn").classList.toggle("active",editMode);document.getElementById("edit-mode-btn").textContent=editMode?"✏️ Done":"✏️ Edit";document.getElementById("edit-banner").classList.toggle("visible",editMode);renderView();};
+function updateHeader(){const tk=todayKey();document.getElementById("date-display").textContent=DAYS[TODAY.getDay()]+", "+MONTHS[TODAY.getMonth()]+" "+TODAY.getDate()+" "+TODAY.getFullYear();const h_=fh(),dt=h_.filter(h=>completions[tk]?.[h.id]).length,tot=h_.length,pct=tot>0?Math.round(dt/tot*100):0,circ=2*Math.PI*22;document.getElementById("ring-progress").setAttribute("stroke-dashoffset",circ*(1-pct/100));document.getElementById("ring-progress").setAttribute("stroke",pct===100?"#4ade80":"#818cf8");document.getElementById("ring-pct").textContent=pct+"%";document.getElementById("ring-pct").style.color=pct===100?"#4ade80":"#e2e8f0";document.getElementById("today-sub").textContent=dt+"/"+tot+" today";const wd=getWeekDates(weekRef),wdn=wd.reduce((s,d)=>{const k=dk(d);return s+h_.filter(h=>completions[k]?.[h.id]).length;},0),wt=wd.length*h_.length,wp=wt>0?Math.round(wdn/wt*100):0;document.getElementById("week-pct").textContent=wp+"%";document.getElementById("week-sub").textContent=wdn+"/"+wt;const sc=SKINCARE[tk],el=document.getElementById("sc-tonight");if(sc){el.innerHTML='<div style="display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:7px 12px;margin-top:10px;background:'+sc.color+'18;border:1px solid '+sc.color+'40"><span style="font-size:14px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight</div><div style="font-size:12px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+'">'+sc.product+'</div><div style="font-size:10px;color:'+sc.color+'">'+sc.series+'</div></div></div>';}else{el.innerHTML="";}}
 function renderCatPills(){const el=document.getElementById("cat-pills");el.innerHTML="";const ab=document.createElement("button");ab.className="pill";ab.textContent="All";ab.style.cssText=selectedCat==="all"?"background:#e2e8f0;color:#0a0a0f":"background:rgba(255,255,255,0.06);color:#94a3b8";ab.onclick=()=>{selectedCat="all";renderCatPills();updateHeader();renderView();};el.appendChild(ab);Object.entries(CATEGORIES).forEach(([key,cat])=>{const b=document.createElement("button");b.className="pill";b.textContent=cat.icon+" "+cat.label;b.style.cssText=selectedCat===key?"background:"+cat.color+";color:#0a0a0f;border-color:"+cat.color:"background:rgba(255,255,255,0.06);color:#94a3b8";b.onclick=()=>{selectedCat=key;renderCatPills();updateHeader();renderView();};el.appendChild(b);});}
-function populateCatSelect(){const sel=document.getElementById("new-cat");sel.innerHTML="";Object.entries(CATEGORIES).forEach(([k,c])=>{const o=document.createElement("option");o.value=k;o.textContent=c.icon+" "+c.label;sel.appendChild(o);});}
+function populateCatSelects(){["new-cat","edit-cat"].forEach(id=>{const sel=document.getElementById(id);sel.innerHTML="";Object.entries(CATEGORIES).forEach(([k,c])=>{const o=document.createElement("option");o.value=k;o.textContent=c.icon+" "+c.label;sel.appendChild(o);});});}
 function renderView(){const el=document.getElementById("view-content");el.className="fade-in";if(currentView==="weekly")el.innerHTML=buildWeekly();else if(currentView==="daily")el.innerHTML=buildDaily();else el.innerHTML=buildMonthly();attachEvents();}
-function buildWeekly(){const wd=getWeekDates(weekRef),tk=todayKey(),h_=fh(),cols="1fr repeat(7,minmax(34px,50px))";let h='<div class="nav-row"><button class="nav-btn" id="week-prev">← Prev</button><span class="nav-label">'+MONTHS[wd[0].getMonth()].slice(0,3)+" "+wd[0].getDate()+" - "+MONTHS[wd[6].getMonth()].slice(0,3)+" "+wd[6].getDate()+", "+wd[6].getFullYear()+'</span><button class="nav-btn" id="week-next">Next →</button></div><div class="week-grid"><div class="week-header-row" style="grid-template-columns:'+cols+'"><div class="week-col-label">Habit</div>';wd.forEach(d=>{const k=dk(d),isT=k===tk,sc=SKINCARE[k];h+='<div class="week-day-col" style="background:'+(isT?"rgba(129,140,248,0.12)":"transparent")+'"><div class="week-day-name" style="color:'+(isT?"#818cf8":"#475569")+'">'+DAYS[d.getDay()]+'</div><div class="week-day-num" style="color:'+(isT?"#818cf8":"#64748b")+'">'+d.getDate()+'</div>'+(sc?'<div class="week-day-sc" style="color:'+(sc.rest?"#334155":sc.color)+'">'+(sc.rest?"😴":sc.product.replace("Medicube ","M.").replace(" One Day",""))+'</div>':"")+'</div>';});h+="</div>";Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-header-row" style="grid-template-columns:'+cols+'"><div class="cat-label-cell" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+"</div>";wd.forEach(d=>{const k=dk(d),dn=ch.filter(x=>completions[k]?.[x.id]).length;h+='<div class="cat-count-cell" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';color:'+cat.color+'">'+(dn>0?dn+"/"+ch.length:"")+"</div>";});h+="</div>";ch.forEach((habit,idx)=>{const st=calcStreak(habit.id);h+='<div class="habit-row-g" style="grid-template-columns:'+cols+';background:'+(idx%2?"rgba(255,255,255,0.01)":"transparent")+'"><div class="habit-name-cell"><span class="habit-icon-s">'+habit.icon+'</span><div style="flex:1;min-width:0"><div class="habit-name-t">'+habit.name+"</div>"+(st>0?'<div class="habit-streak-t" style="color:'+habit.color+'">🔥 '+st+"d</div>":"")+'</div><button class="del-btn" data-del="'+habit.id+'">x</button></div>';wd.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),fut=isFuture(k);h+='<div class="check-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut?"default":"pointer")+'"><div class="check-box" style="background:'+(dn?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(dn?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(dn?"0 0 7px "+habit.color+"40":"none")+'">'+(dn?"✓":"")+"</div></div>";});h+="</div>";});});h+="</div>";return h;}
-function buildDaily(){const fd=new Date(focusDay+"T12:00:00"),tk=todayKey(),h_=fh(),fut=isFuture(focusDay),dn=h_.filter(h=>completions[focusDay]?.[h.id]).length,pct=h_.length>0?Math.round(dn/h_.length*100):0,sc=SKINCARE[focusDay];let h='<div class="nav-row"><button class="nav-btn" id="day-prev">← Prev</button><span class="nav-label">'+DAYS[fd.getDay()]+", "+MONTHS[fd.getMonth()]+" "+fd.getDate()+(focusDay===tk?' <span style="font-size:10px;background:rgba(129,140,248,0.2);color:#818cf8;padding:2px 7px;border-radius:9px">Today</span>':"")+'</span><button class="nav-btn" id="day-next">Next →</button></div><div class="progress-wrap"><div class="progress-meta"><span>Daily Progress</span><span style="font-weight:700;color:'+(pct===100?"#4ade80":"#e2e8f0")+'">'+dn+" / "+h_.length+" - "+pct+'%</span></div><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%;background:'+(pct===100?"#4ade80":"#818cf8")+'"></div></div></div>';if(sc){h+='<div class="sc-card" style="background:'+sc.color+'12;border:1px solid '+sc.color+'35"><span style="font-size:18px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight\'s Skincare</div><div style="font-size:13px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+';margin-top:2px">'+sc.product+'</div><div style="font-size:11px;color:'+sc.color+';margin-top:1px">'+sc.series+"</div></div></div>";}Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-section"><div class="cat-section-title" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+'</div><div class="daily-list">';ch.forEach(habit=>{const isDone=!!(completions[focusDay]?.[habit.id]),st=calcStreak(habit.id);h+='<div class="daily-row" data-toggle="'+habit.id+"|"+focusDay+'" style="opacity:'+(fut?0.4:1)+';cursor:'+(fut?"default":"pointer")+'"><div class="daily-check" style="background:'+(isDone?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(isDone?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(isDone?"0 0 10px "+habit.color+"50":"none")+'">'+(isDone?"✓":habit.icon)+'</div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:'+(isDone?"#94a3b8":"#e2e8f0")+';text-decoration:'+(isDone?"line-through":"none")+'">'+habit.name+"</div>"+(st>0?'<div style="font-size:10px;color:'+habit.color+';margin-top:2px">🔥 '+st+"-day streak</div>":"")+'</div><div class="daily-done-lbl" style="color:'+(isDone?"#4ade80":"#334155")+'">'+(isDone?"Done":"")+"</div></div>";});h+="</div></div>";});return h;}
-function buildMonthly(){const md=getMonthDates(monthRef.year,monthRef.month),tk=todayKey(),h_=fh(),fd=new Date(monthRef.year,monthRef.month,1).getDay();let h='<div class="nav-row"><button class="nav-btn" id="month-prev">← Prev</button><span class="nav-label">'+MONTHS[monthRef.month]+" "+monthRef.year+'</span><button class="nav-btn" id="month-next">Next →</button></div>';h_.forEach(habit=>{const st=calcStreak(habit.id),mdn=md.filter(d=>completions[dk(d)]?.[habit.id]).length;h+='<div class="month-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:9px"><span style="font-size:16px">'+habit.icon+'</span><div><div style="font-size:12px;font-weight:600;color:#e2e8f0">'+habit.name+'</div><div style="font-size:10px;color:#475569;margin-top:1px"><span style="color:'+CATEGORIES[habit.category].color+'">'+CATEGORIES[habit.category].label+"</span>"+(st>0?'<span style="margin-left:7px">🔥 '+st+"-day streak</span>":"")+'<span style="margin-left:7px;color:#64748b">'+mdn+"/"+md.length+' this month</span></div></div></div><div class="month-cal-grid">';DAYS.forEach(d=>{h+='<div class="month-day-lbl">'+d[0]+"</div>";});for(let i=0;i<fd;i++)h+="<div></div>";md.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),isT=k===tk,fut=isFuture(k);h+='<div class="month-day-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(dn?habit.color:isT?"rgba(129,140,248,0.15)":"rgba(255,255,255,0.04)")+';border-color:'+(isT?"#818cf8":"transparent")+';color:'+(dn?"#0a0a0f":isT?"#818cf8":"#475569")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut?"default":"pointer")+';box-shadow:'+(dn?"0 0 5px "+habit.color+"40":"none")+'">'+d.getDate()+"</div>";});h+="</div></div>";});return h;}
-function attachEvents(){document.querySelectorAll("[data-toggle]").forEach(el=>{el.addEventListener("click",()=>{const[hid,k]=el.dataset.toggle.split("|");toggle(hid,k);});});document.querySelectorAll("[data-del]").forEach(el=>{el.addEventListener("click",(e)=>{e.stopPropagation();habits=habits.filter(h=>h.id!==el.dataset.del);save();renderView();updateHeader();});});const wp=document.getElementById("week-prev");if(wp)wp.onclick=()=>{weekRef.setDate(weekRef.getDate()-7);updateHeader();renderView();};const wn=document.getElementById("week-next");if(wn)wn.onclick=()=>{weekRef.setDate(weekRef.getDate()+7);updateHeader();renderView();};const dp=document.getElementById("day-prev");if(dp)dp.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()-1);focusDay=dk(d);renderView();};const dn2=document.getElementById("day-next");if(dn2)dn2.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()+1);focusDay=dk(d);renderView();};const mp=document.getElementById("month-prev");if(mp)mp.onclick=()=>{monthRef.month--;if(monthRef.month<0){monthRef.month=11;monthRef.year--;}renderView();};const mn=document.getElementById("month-next");if(mn)mn.onclick=()=>{monthRef.month++;if(monthRef.month>11){monthRef.month=0;monthRef.year++;}renderView();};}
+function buildWeekly(){const wd=getWeekDates(weekRef),tk=todayKey(),h_=fh(),cols="1fr repeat(7,minmax(34px,50px))";let h='<div class="nav-row"><button class="nav-btn" id="week-prev">← Prev</button><span class="nav-label">'+MONTHS[wd[0].getMonth()].slice(0,3)+" "+wd[0].getDate()+" - "+MONTHS[wd[6].getMonth()].slice(0,3)+" "+wd[6].getDate()+", "+wd[6].getFullYear()+'</span><button class="nav-btn" id="week-next">Next →</button></div><div class="week-grid"><div class="week-header-row" style="grid-template-columns:'+cols+'"><div class="week-col-label">Habit</div>';wd.forEach(d=>{const k=dk(d),isT=k===tk,sc=SKINCARE[k];h+='<div class="week-day-col" style="background:'+(isT?"rgba(129,140,248,0.12)":"transparent")+'"><div class="week-day-name" style="color:'+(isT?"#818cf8":"#475569")+'">'+DAYS[d.getDay()]+'</div><div class="week-day-num" style="color:'+(isT?"#818cf8":"#64748b")+'">'+d.getDate()+'</div>'+(sc?'<div class="week-day-sc" style="color:'+(sc.rest?"#334155":sc.color)+'">'+(sc.rest?"😴":sc.product.replace("Medicube ","M.").replace(" One Day",""))+'</div>':"")+'</div>';});h+="</div>";Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-header-row" style="grid-template-columns:'+cols+'"><div class="cat-label-cell" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+"</div>";wd.forEach(d=>{const k=dk(d),dn=ch.filter(x=>completions[k]?.[x.id]).length;h+='<div class="cat-count-cell" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';color:'+cat.color+'">'+(dn>0?dn+"/"+ch.length:"")+"</div>";});h+="</div>";ch.forEach((habit,idx)=>{const st=calcStreak(habit.id);h+='<div class="habit-row-g" style="grid-template-columns:'+cols+';background:'+(idx%2?"rgba(255,255,255,0.01)":"transparent")+'"><div class="habit-name-cell"><span class="habit-icon-s">'+habit.icon+'</span><div style="flex:1;min-width:0"><div class="habit-name-t">'+habit.name+"</div>"+(st>0?'<div class="habit-streak-t" style="color:'+habit.color+'">🔥 '+st+"d</div>":"")+'</div><div class="action-btns">'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'">✏️</button>':'')+'<button class="del-btn-sm" data-del="'+habit.id+'">✕</button></div></div>';wd.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),fut=isFuture(k);h+='<div class="check-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut||editMode?"default":"pointer")+'"><div class="check-box" style="background:'+(dn?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(dn?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(dn?"0 0 7px "+habit.color+"40":"none")+'">'+(dn?"✓":"")+"</div></div>";});h+="</div>";});});h+="</div>";return h;}
+function buildDaily(){const fd=new Date(focusDay+"T12:00:00"),tk=todayKey(),h_=fh(),fut=isFuture(focusDay),dn=h_.filter(h=>completions[focusDay]?.[h.id]).length,pct=h_.length>0?Math.round(dn/h_.length*100):0,sc=SKINCARE[focusDay];let h='<div class="nav-row"><button class="nav-btn" id="day-prev">← Prev</button><span class="nav-label">'+DAYS[fd.getDay()]+", "+MONTHS[fd.getMonth()]+" "+fd.getDate()+(focusDay===tk?' <span style="font-size:10px;background:rgba(129,140,248,0.2);color:#818cf8;padding:2px 7px;border-radius:9px">Today</span>':"")+'</span><button class="nav-btn" id="day-next">Next →</button></div><div class="progress-wrap"><div class="progress-meta"><span>Daily Progress</span><span style="font-weight:700;color:'+(pct===100?"#4ade80":"#e2e8f0")+'">'+dn+" / "+h_.length+" - "+pct+'%</span></div><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%;background:'+(pct===100?"#4ade80":"#818cf8")+'"></div></div></div>';if(sc){h+='<div class="sc-card" style="background:'+sc.color+'12;border:1px solid '+sc.color+'35"><span style="font-size:18px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight\'s Skincare</div><div style="font-size:13px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+';margin-top:2px">'+sc.product+'</div><div style="font-size:11px;color:'+sc.color+';margin-top:1px">'+sc.series+"</div></div></div>";}Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-section"><div class="cat-section-title" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+'</div><div class="daily-list">';ch.forEach(habit=>{const isDone=!!(completions[focusDay]?.[habit.id]),st=calcStreak(habit.id);h+='<div class="daily-row" style="opacity:'+(fut?0.4:1)+'"><div class="daily-check" data-toggle="'+habit.id+"|"+focusDay+'" style="background:'+(isDone?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(isDone?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(isDone?"0 0 10px "+habit.color+"50":"none")+';cursor:'+(fut||editMode?"default":"pointer")+'">'+(isDone?"✓":habit.icon)+'</div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:'+(isDone?"#94a3b8":"#e2e8f0")+';text-decoration:'+(isDone?"line-through":"none")+'">'+habit.name+"</div>"+(st>0?'<div style="font-size:10px;color:'+habit.color+';margin-top:2px">🔥 '+st+"-day streak</div>":"")+'</div>'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'" style="margin-left:auto">✏️ Edit</button>':'<div class="daily-done-lbl" style="color:'+(isDone?"#4ade80":"#334155")+';margin-left:auto">'+(isDone?"Done":"")+"</div>")+"</div>";});h+="</div></div>";});return h;}
+function buildMonthly(){const md=getMonthDates(monthRef.year,monthRef.month),tk=todayKey(),h_=fh(),fd=new Date(monthRef.year,monthRef.month,1).getDay();let h='<div class="nav-row"><button class="nav-btn" id="month-prev">← Prev</button><span class="nav-label">'+MONTHS[monthRef.month]+" "+monthRef.year+'</span><button class="nav-btn" id="month-next">Next →</button></div>';h_.forEach(habit=>{const st=calcStreak(habit.id),mdn=md.filter(d=>completions[dk(d)]?.[habit.id]).length;h+='<div class="month-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:9px"><span style="font-size:16px">'+habit.icon+'</span><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#e2e8f0">'+habit.name+'</div><div style="font-size:10px;color:#475569;margin-top:1px"><span style="color:'+CATEGORIES[habit.category].color+'">'+CATEGORIES[habit.category].label+"</span>"+(st>0?'<span style="margin-left:7px">🔥 '+st+"-day streak</span>":"")+'<span style="margin-left:7px;color:#64748b">'+mdn+"/"+md.length+' this month</span></div></div>'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'">✏️ Edit</button>':"")+'</div><div class="month-cal-grid">';DAYS.forEach(d=>{h+='<div class="month-day-lbl">'+d[0]+"</div>";});for(let i=0;i<fd;i++)h+="<div></div>";md.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),isT=k===tk,fut=isFuture(k);h+='<div class="month-day-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(dn?habit.color:isT?"rgba(129,140,248,0.15)":"rgba(255,255,255,0.04)")+';border-color:'+(isT?"#818cf8":"transparent")+';color:'+(dn?"#0a0a0f":isT?"#818cf8":"#475569")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut||editMode?"default":"pointer")+';box-shadow:'+(dn?"0 0 5px "+habit.color+"40":"none")+'">'+d.getDate()+"</div>";});h+="</div></div>";});return h;}
+function attachEvents(){document.querySelectorAll("[data-toggle]").forEach(el=>{el.addEventListener("click",()=>{if(editMode)return;const[hid,k]=el.dataset.toggle.split("|");toggle(hid,k);});});document.querySelectorAll("[data-edit]").forEach(el=>{el.addEventListener("click",(e)=>{e.stopPropagation();openEditModal(el.dataset.edit);});});document.querySelectorAll("[data-del]").forEach(el=>{el.addEventListener("click",(e)=>{e.stopPropagation();habits=habits.filter(h=>h.id!==el.dataset.del);save();renderView();updateHeader();});});const wp=document.getElementById("week-prev");if(wp)wp.onclick=()=>{weekRef.setDate(weekRef.getDate()-7);updateHeader();renderView();};const wn=document.getElementById("week-next");if(wn)wn.onclick=()=>{weekRef.setDate(weekRef.getDate()+7);updateHeader();renderView();};const dp=document.getElementById("day-prev");if(dp)dp.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()-1);focusDay=dk(d);renderView();};const dn2=document.getElementById("day-next");if(dn2)dn2.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()+1);focusDay=dk(d);renderView();};const mp=document.getElementById("month-prev");if(mp)mp.onclick=()=>{monthRef.month--;if(monthRef.month<0){monthRef.month=11;monthRef.year--;}renderView();};const mn=document.getElementById("month-next");if(mn)mn.onclick=()=>{monthRef.month++;if(monthRef.month>11){monthRef.month=0;monthRef.year++;}renderView();};}
 document.getElementById("view-tabs").addEventListener("click",(e)=>{const btn=e.target.closest(".view-tab");if(!btn)return;currentView=btn.dataset.view;document.querySelectorAll(".view-tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderView();});
 document.getElementById("add-habit-btn").onclick=()=>document.getElementById("add-panel").classList.add("open");
 document.getElementById("btn-add-cancel").onclick=()=>document.getElementById("add-panel").classList.remove("open");
 document.getElementById("btn-add-save").onclick=()=>{const name=document.getElementById("new-name").value.trim();if(!name)return;const cat=document.getElementById("new-cat").value,icon=document.getElementById("new-icon").value||"⭐";habits.push({id:"c_"+Date.now(),name,category:cat,icon,color:CATEGORIES[cat].color});save();document.getElementById("new-name").value="";document.getElementById("new-icon").value="⭐";document.getElementById("add-panel").classList.remove("open");renderView();updateHeader();};
-populateCatSelect();renderCatPills();updateHeader();renderView();
+populateCatSelects();renderCatPills();updateHeader();renderView();
 </script>
 </body>
 </html>
