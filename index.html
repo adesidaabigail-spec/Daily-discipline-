@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -7,136 +8,254 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Daily Discipline"/>
 <title>Daily Discipline</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
 <style>
+:root{
+  --bg:#070710;
+  --surface:#0f0f1e;
+  --surface2:#161628;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#f0f0ff;
+  --muted:#5a5a8a;
+  --muted2:#3a3a5a;
+  --accent1:#818cf8;
+  --accent2:#f472b6;
+  --cat-health:#38bdf8;
+  --cat-fitness:#f87171;
+  --cat-religion:#fde68a;
+  --cat-productivity:#4ade80;
+  --cat-work:#60a5fa;
+  --cat-life:#f472b6;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{min-height:100%;background:#0a0a0f;color:#e2e8f0;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,color-mix(in srgb,var(--accent1) 8%,transparent) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 100%,color-mix(in srgb,var(--accent2) 6%,transparent) 0%,transparent 60%);pointer-events:none;z-index:0;}
 button{font-family:'DM Sans',sans-serif;cursor:pointer;border:none;outline:none;}
 input,select{font-family:'DM Sans',sans-serif;outline:none;}
 select option{background:#1a1a2e;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn 0.3s ease forwards;}
-#header{background:linear-gradient(180deg,#0f0f1a 0%,#0a0a0f 100%);border-bottom:1px solid rgba(255,255,255,0.06);padding:env(safe-area-inset-top,24px) 20px 18px;position:sticky;top:0;z-index:100;}
-.app-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#f8fafc,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.app-date{color:#475569;font-size:12px;margin-top:2px;}
-.header-row1{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-.ring-wrap{position:relative;width:60px;height:60px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.fade-in{animation:fadeIn 0.35s ease forwards;}
+
+#header{background:linear-gradient(180deg,color-mix(in srgb,var(–bg) 95%,var(–accent1)) 0%,var(–bg) 100%);border-bottom:1px solid var(–border);padding:env(safe-area-inset-top,28px) 20px 16px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.app-title{font-family:‘Syne’,sans-serif;font-size:28px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#f0f0ff 0%,var(–accent1) 45%,var(–accent2) 80%,#fbbf24 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite;}
+.app-date{color:var(–muted);font-size:11px;margin-top:1px;font-weight:500;}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.ring-wrap{position:relative;width:58px;height:58px;}
 .ring-svg{transform:rotate(-90deg);}
-.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
-.stats-row{display:flex;align-items:center;gap:16px;}
+.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.stats-row{display:flex;align-items:center;gap:14px;}
 .week-stat{text-align:center;}
-.week-stat-label{font-size:10px;color:#475569;margin-bottom:1px;}
-.week-stat-val{font-size:18px;font-weight:700;color:#818cf8;}
-.week-stat-sub{font-size:10px;color:#475569;}
-.cat-pills{display:flex;gap:6px;margin-top:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.week-stat-label{font-size:9px;color:var(–muted);margin-bottom:1px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.week-stat-val{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(–accent1),var(–accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.week-stat-sub{font-size:9px;color:var(–muted);}
+.cat-pills{display:flex;gap:5px;margin-top:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
 .cat-pills::-webkit-scrollbar{display:none;}
-.pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;border:1px solid transparent;}
-#main{max-width:1100px;margin:0 auto;padding:18px 14px 80px;}
-.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px;flex-wrap:wrap;}
-.view-tabs{display:flex;gap:3px;background:rgba(255,255,255,0.05);padding:3px;border-radius:22px;}
-.view-tab{padding:7px 16px;border-radius:19px;font-size:13px;font-weight:600;color:#64748b;background:transparent;}
-.view-tab.active{background:#818cf8;color:#fff;}
-.toolbar-right{display:flex;gap:8px;align-items:center;}
-.add-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;background:rgba(129,140,248,0.15);color:#818cf8;border:1px solid rgba(129,140,248,0.3);font-size:13px;font-weight:600;white-space:nowrap;}
-.edit-mode-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);font-size:13px;font-weight:600;white-space:nowrap;}
-.edit-mode-btn.active{background:rgba(251,191,36,0.25);border-color:#fbbf24;}
-.nav-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;border-radius:8px;padding:7px 13px;font-size:13px;}
+.pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;border:1px solid transparent;transition:all 0.2s;}
+
+#main{max-width:1100px;margin:0 auto;padding:16px 14px 90px;position:relative;z-index:1;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:8px;flex-wrap:wrap;}
+.view-tabs{display:flex;gap:2px;background:rgba(255,255,255,0.04);padding:3px;border-radius:22px;border:1px solid var(–border);}
+.view-tab{padding:7px 15px;border-radius:19px;font-size:12px;font-weight:700;color:var(–muted);background:transparent;transition:all 0.2s;}
+.view-tab.active{background:linear-gradient(135deg,var(–accent1),var(–accent2));color:#fff;box-shadow:0 2px 12px color-mix(in srgb,var(–accent1) 40%,transparent);}
+.toolbar-right{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.tbtn{padding:7px 13px;border-radius:18px;font-size:12px;font-weight:700;border:1.5px solid;transition:all 0.2s;white-space:nowrap;}
+.tbtn-green{background:rgba(52,211,153,0.12);color:#34d399;border-color:rgba(52,211,153,0.35);}
+.tbtn-amber{background:rgba(251,191,36,0.12);color:#fbbf24;border-color:rgba(251,191,36,0.35);}
+.tbtn-amber.on{background:rgba(251,191,36,0.25);border-color:#fbbf24;box-shadow:0 0 12px rgba(251,191,36,0.3);}
+.tbtn-pink{background:rgba(244,114,182,0.12);color:#f472b6;border-color:rgba(244,114,182,0.35);}
+.tbtn-pink.on{background:rgba(244,114,182,0.25);border-color:#f472b6;box-shadow:0 0 12px rgba(244,114,182,0.3);}
+.tbtn-violet{background:color-mix(in srgb,var(–accent1) 12%,transparent);color:var(–accent1);border-color:color-mix(in srgb,var(–accent1) 35%,transparent);}
+.tbtn-violet.on{background:color-mix(in srgb,var(–accent1) 25%,transparent);border-color:var(–accent1);box-shadow:0 0 12px color-mix(in srgb,var(–accent1) 30%,transparent);}
+
+.nav-btn{background:rgba(255,255,255,0.05);border:1px solid var(–border2);color:#94a3b8;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:600;transition:all 0.2s;}
 .nav-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.nav-label{flex:1;text-align:center;font-size:13px;font-weight:600;color:#e2e8f0;}
-#add-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;margin-bottom:16px;display:none;}
+.nav-label{flex:1;text-align:center;font-size:13px;font-weight:700;color:var(–text);}
+.edit-banner{border-radius:10px;padding:9px 14px;margin-bottom:12px;font-size:12px;font-weight:600;text-align:center;display:none;}
+.edit-banner.visible{display:block;}
+.banner-habits{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.25);color:#fbbf24;}
+.banner-skin{background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.25);color:#f472b6;}
+
+#add-panel{background:var(–surface2);border:1px solid var(–border2);border-radius:14px;padding:14px;margin-bottom:14px;display:none;animation:popIn 0.2s ease;}
 #add-panel.open{display:block;}
-.panel-title{font-size:13px;font-weight:600;margin-bottom:11px;color:#e2e8f0;}
-.add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.icon-input{width:44px;text-align:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px;color:#e2e8f0;font-size:18px;}
-.name-input{flex:1;min-width:130px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:14px;}
-.name-input::placeholder{color:#475569;}
-.cat-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:7px 11px;color:#e2e8f0;font-size:13px;}
-.btn-save{padding:7px 16px;border-radius:8px;background:#818cf8;color:#fff;font-size:13px;font-weight:600;}
-.btn-cancel{padding:7px 12px;border-radius:8px;background:rgba(255,255,255,0.06);color:#64748b;font-size:13px;}
-.btn-danger{padding:7px 12px;border-radius:8px;background:rgba(239,68,68,0.15);color:#ef4444;font-size:13px;font-weight:600;}
-#edit-modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:20px;}
-#edit-modal.open{display:flex;}
-#edit-modal-box{background:#0f0f1a;border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:24px;width:100%;max-width:420px;}
-#edit-modal-title{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:18px;}
-.edit-field{margin-bottom:14px;}
-.edit-label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
-.week-grid{background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;}
-.week-header-row{display:grid;border-bottom:1px solid rgba(255,255,255,0.06);}
-.week-col-label{padding:9px 12px;font-size:10px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;}
-.week-day-col{padding:7px 3px;text-align:center;}
-.week-day-name{font-size:9px;font-weight:700;text-transform:uppercase;}
-.week-day-num{font-size:13px;font-weight:700;margin-top:1px;}
-.week-day-sc{font-size:8px;margin-top:3px;line-height:1.2;padding:0 2px;word-break:break-word;}
-.cat-header-row{display:grid;background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.04);}
-.cat-label-cell{padding:5px 12px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
-.cat-count-cell{padding:5px 3px;text-align:center;font-size:9px;font-weight:600;}
-.habit-row-g{display:grid;border-top:1px solid rgba(255,255,255,0.03);transition:background 0.15s;}
-.habit-row-g:hover{background:rgba(255,255,255,0.03);}
-.habit-name-cell{padding:8px 12px;display:flex;align-items:center;gap:7px;min-width:0;}
-.habit-icon-s{font-size:14px;flex-shrink:0;}
-.habit-name-t{font-size:11px;color:#cbd5e1;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.habit-streak-t{font-size:9px;margin-top:1px;}
-.action-btns{display:flex;gap:4px;flex-shrink:0;opacity:0;transition:opacity 0.15s;}
-.habit-row-g:hover .action-btns{opacity:1;}
-.edit-btn-sm{background:rgba(251,191,36,0.15);color:#fbbf24;border:none;border-radius:4px;padding:2px 6px;font-size:9px;cursor:pointer;}
-.del-btn-sm{background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 6px;font-size:9px;cursor:pointer;}
-.check-cell{display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.check-cell:active{transform:scale(0.88);}
-.check-box{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;}
-.progress-wrap{background:rgba(255,255,255,0.03);border-radius:12px;padding:13px 16px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.06);}
-.progress-meta{display:flex;justify-content:space-between;margin-bottom:7px;font-size:13px;color:#64748b;}
-.progress-track{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
-.progress-fill{height:100%;border-radius:3px;transition:width 0.4s ease;}
-.sc-card{border-radius:12px;padding:11px 14px;margin-bottom:16px;display:flex;align-items:center;gap:11px;}
-.cat-section{margin-bottom:13px;}
-.cat-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
-.daily-list{background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.05);overflow:hidden;}
-.daily-row{display:flex;align-items:center;gap:11px;padding:11px 13px;border-top:1px solid rgba(255,255,255,0.04);}
+.panel-title{font-size:12px;font-weight:700;margin-bottom:10px;color:#34d399;text-transform:uppercase;letter-spacing:0.8px;}
+.add-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+.icon-inp{width:42px;text-align:center;background:rgba(255,255,255,0.06);border:1px solid var(–border2);border-radius:8px;padding:7px;color:var(–text);font-size:18px;}
+.name-inp{flex:1;min-width:120px;background:rgba(255,255,255,0.06);border:1px solid var(–border2);border-radius:8px;padding:7px 10px;color:var(–text);font-size:13px;}
+.name-inp::placeholder{color:var(–muted);}
+.cat-sel{background:rgba(255,255,255,0.06);border:1px solid var(–border2);border-radius:8px;padding:7px 10px;color:var(–text);font-size:12px;}
+.btn-ok{padding:7px 14px;border-radius:8px;background:linear-gradient(135deg,var(–accent1),var(–accent2));color:#fff;font-size:12px;font-weight:700;border:none;box-shadow:0 2px 10px color-mix(in srgb,var(–accent1) 30%,transparent);}
+.btn-no{padding:7px 10px;border-radius:8px;background:rgba(255,255,255,0.05);color:var(–muted);font-size:12px;border:1px solid var(–border);}
+.btn-del{padding:7px 10px;border-radius:8px;background:rgba(251,113,133,0.12);color:#fb7185;font-size:12px;font-weight:600;border:1px solid rgba(251,113,133,0.25);}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;animation:fadeIn 0.2s ease;}
+.modal-box{background:linear-gradient(160deg,#12122a 0%,#0d0d1e 100%);border:1px solid var(–border2);border-radius:20px;padding:24px;width:100%;max-width:440px;animation:popIn 0.25s ease;box-shadow:0 20px 60px rgba(0,0,0,0.6);max-height:90vh;overflow-y:auto;}
+.modal-title{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:800;margin-bottom:18px;}
+.modal-field{margin-bottom:14px;}
+.modal-label{font-size:10px;color:var(–muted);font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+.modal-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid var(–border2);border-radius:10px;padding:9px 12px;color:var(–text);font-size:13px;}
+.modal-input:focus{border-color:var(–accent1);}
+.modal-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+
+/* COLOUR EDITOR */
+#colour-panel{background:var(–surface);border-radius:16px;border:1px solid color-mix(in srgb,var(–accent1) 25%,transparent);padding:18px;margin-bottom:14px;display:none;}
+#colour-panel.open{display:block;animation:fadeIn 0.3s ease;}
+.colour-panel-title{font-family:‘Syne’,sans-serif;font-size:14px;font-weight:800;color:var(–accent1);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.theme-presets{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;}
+.theme-presets::-webkit-scrollbar{display:none;}
+.theme-btn{padding:7px 14px;border-radius:14px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.colour-section-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(–muted);margin-bottom:10px;margin-top:14px;}
+.colour-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.colour-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border-radius:10px;padding:8px 12px;border:1px solid var(–border);}
+.colour-row-label{flex:1;font-size:12px;font-weight:600;color:var(–text);}
+.colour-swatch{width:28px;height:28px;border-radius:7px;border:2px solid rgba(255,255,255,0.15);cursor:pointer;transition:transform 0.15s;flex-shrink:0;}
+.colour-swatch:hover{transform:scale(1.1);}
+input[type=color]{opacity:0;position:absolute;width:28px;height:28px;cursor:pointer;}
+.reset-btn{font-size:10px;color:var(–muted);background:none;border:none;cursor:pointer;font-weight:600;text-decoration:underline;margin-top:10px;}
+
+/* WEEK GRID */
+.week-grid{background:var(–surface);border-radius:16px;border:1px solid var(–border);overflow:hidden;}
+.week-header-row{display:grid;border-bottom:1px solid var(–border);}
+.week-col-label{padding:10px 12px;font-size:9px;color:var(–muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.week-day-col{padding:8px 3px;text-align:center;}
+.week-day-name{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;}
+.week-day-num{font-size:14px;font-weight:800;margin-top:1px;}
+.week-day-sc{font-size:7px;margin-top:3px;line-height:1.3;padding:0 2px;word-break:break-word;font-weight:600;}
+.cat-header-row{display:grid;border-top:1px solid rgba(255,255,255,0.03);}
+.cat-label-cell{padding:5px 12px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;}
+.cat-count-cell{padding:5px 3px;text-align:center;font-size:9px;font-weight:700;}
+.habit-row-g{display:grid;border-top:1px solid rgba(255,255,255,0.025);transition:background 0.15s;}
+.habit-row-g:hover{background:rgba(255,255,255,0.025);}
+.habit-name-cell{padding:8px 10px;display:flex;align-items:center;gap:6px;min-width:0;}
+.habit-icon-s{font-size:13px;flex-shrink:0;}
+.habit-name-t{font-size:10px;color:#c0c8e8;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.habit-streak-t{font-size:8px;margin-top:1px;font-weight:700;}
+.action-btns{display:flex;gap:3px;flex-shrink:0;opacity:0;transition:opacity 0.15s;}
+.habit-row-g:hover .action-btns,.daily-row:hover .action-btns{opacity:1;}
+.btn-edit-xs{background:rgba(251,191,36,0.15);color:#fbbf24;border:none;border-radius:4px;padding:3px 6px;font-size:9px;cursor:pointer;font-weight:700;}
+.btn-del-xs{background:rgba(251,113,133,0.15);color:#fb7185;border:none;border-radius:4px;padding:3px 6px;font-size:9px;cursor:pointer;font-weight:700;}
+.btn-skin-xs{background:rgba(244,114,182,0.15);color:#f472b6;border:none;border-radius:4px;padding:3px 6px;font-size:9px;cursor:pointer;font-weight:700;}
+.check-cell{display:flex;align-items:center;justify-content:center;}
+.check-cell:active{transform:scale(0.85);}
+.check-box{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:all 0.15s;}
+
+/* DAILY */
+.progress-wrap{border-radius:14px;padding:13px 16px;margin-bottom:12px;border:1px solid var(–border);background:linear-gradient(135deg,color-mix(in srgb,var(–accent1) 6%,transparent),color-mix(in srgb,var(–accent2) 4%,transparent));}
+.progress-meta{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;}
+.progress-track{height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+.sc-card-big{border-radius:14px;padding:13px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;}
+.cat-section{margin-bottom:12px;}
+.cat-section-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;}
+.daily-list{background:var(–surface);border-radius:12px;border:1px solid var(–border);overflow:hidden;}
+.daily-row{display:flex;align-items:center;gap:10px;padding:11px 13px;border-top:1px solid rgba(255,255,255,0.03);transition:background 0.15s;}
 .daily-row:first-child{border-top:none;}
-.daily-check{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.daily-done-lbl{font-size:10px;font-weight:600;margin-left:auto;}
-.month-card{margin-bottom:13px;background:rgba(255,255,255,0.02);border-radius:13px;border:1px solid rgba(255,255,255,0.06);padding:11px 13px;}
+.daily-check{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;cursor:pointer;transition:all 0.2s;font-weight:800;}
+
+/* MONTHLY */
+.month-card{margin-bottom:12px;border-radius:14px;border:1px solid var(–border);padding:12px 13px;background:var(–surface);}
 .month-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
-.month-day-lbl{font-size:8px;text-align:center;color:#334155;font-weight:600;padding-bottom:3px;}
-.month-day-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:9px;font-weight:600;cursor:pointer;border:1.5px solid transparent;}
-.month-day-cell:active{transform:scale(0.88);}
-#edit-banner{display:none;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#fbbf24;text-align:center;}
-#edit-banner.visible{display:block;}
+.month-day-lbl{font-size:7px;text-align:center;color:var(–muted2);font-weight:800;padding-bottom:3px;}
+.month-day-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:8px;font-weight:800;cursor:pointer;border:1.5px solid transparent;transition:all 0.12s;}
+.month-day-cell:active{transform:scale(0.85);}
+
+/* SKINCARE EDITOR */
+#skin-section{background:var(–surface);border-radius:16px;border:1px solid rgba(244,114,182,0.2);padding:16px;margin-bottom:14px;display:none;}
+#skin-section.open{display:block;animation:fadeIn 0.3s ease;}
+.skin-section-title{font-family:‘Syne’,sans-serif;font-size:14px;font-weight:800;color:#f472b6;margin-bottom:14px;}
+.skin-month-tabs{display:flex;gap:5px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;}
+.skin-month-tabs::-webkit-scrollbar{display:none;}
+.skin-month-tab{padding:5px 12px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.skin-day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
+.skin-day-card{background:rgba(255,255,255,0.03);border-radius:10px;padding:10px;border:1px solid var(–border);cursor:pointer;transition:all 0.2s;position:relative;}
+.skin-day-card:hover{border-color:rgba(244,114,182,0.4);background:rgba(244,114,182,0.05);}
+.skin-day-date{font-size:10px;font-weight:800;margin-bottom:5px;}
+.skin-day-product{font-size:11px;font-weight:700;}
+.skin-day-series{font-size:9px;margin-top:2px;opacity:0.7;}
+.skin-edit-icon{position:absolute;top:6px;right:6px;font-size:10px;opacity:0.4;}
+
 @media(min-width:768px){
-  #header{padding-left:28px;padding-right:28px;}
-  #main{padding:22px 28px 80px;}
-  .app-title{font-size:30px;}
-  .check-box{width:26px;height:26px;}
+#header{padding-left:24px;padding-right:24px;}
+#main{padding:18px 24px 90px;}
+.app-title{font-size:32px;}
+.check-box{width:24px;height:24px;}
+.skin-day-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+.colour-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
 }
 </style>
+
 </head>
 <body>
 
-<div id="edit-modal">
-  <div id="edit-modal-box">
-    <div id="edit-modal-title">Edit Habit</div>
-    <div class="edit-field">
-      <div class="edit-label">Icon</div>
-      <input class="icon-input" id="edit-icon" maxlength="2"/>
+<!-- HABIT MODAL -->
+
+<div class="modal-overlay" id="habit-modal">
+  <div class="modal-box">
+    <div class="modal-title" style="color:#fbbf24">✏️ Edit Habit</div>
+    <div class="modal-field"><div class="modal-label">Icon</div><input class="modal-input" id="h-icon" maxlength="2" style="width:60px;text-align:center;font-size:20px;"/></div>
+    <div class="modal-field"><div class="modal-label">Name</div><input class="modal-input" id="h-name"/></div>
+    <div class="modal-field"><div class="modal-label">Category</div><select class="modal-input" id="h-cat"></select></div>
+    <div class="modal-field">
+      <div class="modal-label">Habit colour</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="position:relative;width:36px;height:36px;">
+          <div id="h-color-swatch" class="colour-swatch" style="width:36px;height:36px;"></div>
+          <input type="color" id="h-color" style="width:36px;height:36px;top:0;left:0;"/>
+        </div>
+        <span style="font-size:11px;color:var(--muted)">Pick a colour for this habit's checkmarks & streaks</span>
+      </div>
     </div>
-    <div class="edit-field">
-      <div class="edit-label">Name</div>
-      <input class="name-input" id="edit-name" style="width:100%"/>
-    </div>
-    <div class="edit-field">
-      <div class="edit-label">Category</div>
-      <select class="cat-select" id="edit-cat" style="width:100%"></select>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;">
-      <button class="btn-save" id="edit-save-btn" style="flex:1">Save Changes</button>
-      <button class="btn-cancel" id="edit-cancel-btn">Cancel</button>
-      <button class="btn-danger" id="edit-delete-btn">Delete</button>
+    <div class="modal-actions">
+      <button class="btn-ok" id="h-save" style="flex:1">Save</button>
+      <button class="btn-no" id="h-cancel">Cancel</button>
+      <button class="btn-del" id="h-delete">Delete</button>
     </div>
   </div>
 </div>
 
+<!-- SKINCARE MODAL -->
+
+<div class="modal-overlay" id="skin-modal">
+  <div class="modal-box">
+    <div class="modal-title" style="color:#f472b6">🧴 Edit Skincare</div>
+    <div id="skin-modal-date" style="font-size:11px;color:var(--muted);margin-bottom:14px;font-weight:600;"></div>
+    <div class="modal-field"><div class="modal-label">Product name</div><input class="modal-input" id="sk-product"/></div>
+    <div class="modal-field"><div class="modal-label">Series / notes</div><input class="modal-input" id="sk-series"/></div>
+    <div class="modal-field">
+      <div class="modal-label">Colour</div>
+      <select class="modal-input" id="sk-color">
+        <option value="#fb923c">🟠 Orange</option>
+        <option value="#fbbf24">🟡 Amber</option>
+        <option value="#34d399">🟢 Emerald</option>
+        <option value="#f87171">🔴 Red</option>
+        <option value="#22d3ee">🩵 Cyan</option>
+        <option value="#e879f9">🟣 Fuchsia</option>
+        <option value="#818cf8">💙 Indigo</option>
+        <option value="#a78bfa">💜 Violet</option>
+        <option value="#f472b6">🩷 Pink</option>
+        <option value="#a3e635">🟩 Lime</option>
+        <option value="#475569">⚫ Grey (REST)</option>
+      </select>
+    </div>
+    <div class="modal-field" style="display:flex;align-items:center;gap:10px;">
+      <input type="checkbox" id="sk-rest" style="width:16px;height:16px;cursor:pointer;accent-color:#f472b6"/>
+      <label for="sk-rest" style="font-size:12px;color:var(--muted);cursor:pointer;font-weight:600;">REST night (no actives)</label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ok" id="sk-save" style="flex:1">Save</button>
+      <button class="btn-no" id="sk-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+
 <div id="header">
-  <div class="header-row1">
+  <div class="header-top">
     <div>
       <div class="app-title">Daily Discipline</div>
       <div class="app-date" id="date-display"></div>
@@ -145,15 +264,19 @@ select option{background:#1a1a2e;}
     <div class="stats-row">
       <div>
         <div class="ring-wrap">
-          <svg class="ring-svg" width="60" height="60" viewBox="0 0 60 60">
-            <circle cx="30" cy="30" r="22" fill="none" stroke="#1e2030" stroke-width="5"/>
-            <circle id="ring-progress" cx="30" cy="30" r="22" fill="none" stroke="#818cf8" stroke-width="5"
-              stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2"
-              style="transition:stroke-dashoffset 0.5s ease,stroke 0.3s"/>
+          <svg class="ring-svg" width="58" height="58" viewBox="0 0 58 58">
+            <circle cx="29" cy="29" r="21" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+            <circle id="ring-arc" cx="29" cy="29" r="21" fill="none" stroke="url(#ringGrad)" stroke-width="5"
+              stroke-linecap="round" stroke-dasharray="132" stroke-dashoffset="132"
+              style="transition:stroke-dashoffset 0.6s cubic-bezier(0.34,1.56,0.64,1)"/>
+            <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#818cf8" id="ring-stop1"/>
+              <stop offset="100%" stop-color="#f472b6" id="ring-stop2"/>
+            </linearGradient></defs>
           </svg>
-          <div class="ring-text" id="ring-pct" style="color:#e2e8f0">0%</div>
+          <div class="ring-text" id="ring-pct">0%</div>
         </div>
-        <div style="font-size:9px;color:#475569;text-align:center;margin-top:2px" id="today-sub">0/0 today</div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:2px;font-weight:600;" id="today-sub">0/0</div>
       </div>
       <div class="week-stat">
         <div class="week-stat-label">This week</div>
@@ -165,6 +288,8 @@ select option{background:#1a1a2e;}
   <div class="cat-pills" id="cat-pills"></div>
 </div>
 
+<!-- MAIN -->
+
 <div id="main">
   <div class="toolbar">
     <div class="view-tabs" id="view-tabs">
@@ -173,25 +298,102 @@ select option{background:#1a1a2e;}
       <button class="view-tab" data-view="daily">Daily</button>
     </div>
     <div class="toolbar-right">
-      <button class="edit-mode-btn" id="edit-mode-btn">✏️ Edit</button>
-      <button class="add-btn" id="add-habit-btn">+ Add</button>
+      <button class="tbtn tbtn-amber" id="btn-edit-habits">✏️ Habits</button>
+      <button class="tbtn tbtn-pink" id="btn-edit-skin">🧴 Skincare</button>
+      <button class="tbtn tbtn-violet" id="btn-colours">🎨 Colours</button>
+      <button class="tbtn tbtn-green" id="btn-add-habit">＋ Add</button>
     </div>
   </div>
-  <div id="edit-banner">✏️ Edit mode on — tap any habit to rename, change icon or category</div>
+
+  <div class="edit-banner banner-habits" id="banner-habits">✏️ Habit edit mode — tap ✏️ on any habit to edit name, icon, colour or category</div>
+  <div class="edit-banner banner-skin" id="banner-skin">🧴 Skincare edit mode — scroll down to edit each day's product</div>
+
   <div id="add-panel">
-    <div class="panel-title">New Habit</div>
+    <div class="panel-title">＋ New Habit</div>
     <div class="add-row">
-      <input class="icon-input" id="new-icon" value="⭐" maxlength="2"/>
-      <input class="name-input" id="new-name" placeholder="Habit name..."/>
-      <select class="cat-select" id="new-cat"></select>
-      <button class="btn-save" id="btn-add-save">Add</button>
-      <button class="btn-cancel" id="btn-add-cancel">Cancel</button>
+      <input class="icon-inp" id="new-icon" value="⭐" maxlength="2"/>
+      <input class="name-inp" id="new-name" placeholder="Habit name..."/>
+      <select class="cat-sel" id="new-cat"></select>
+      <button class="btn-ok" id="btn-new-save">Add</button>
+      <button class="btn-no" id="btn-new-cancel">Cancel</button>
     </div>
   </div>
+
+  <!-- COLOUR EDITOR PANEL -->
+
+  <div id="colour-panel">
+    <div class="colour-panel-title">
+      <span>🎨 Colour Themes</span>
+      <button class="btn-no" id="colour-close" style="padding:4px 10px;font-size:11px;">Close</button>
+    </div>
+
+```
+<!-- Theme presets -->
+<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;">Quick Themes</div>
+<div class="theme-presets" id="theme-presets"></div>
+
+<!-- App background -->
+<div class="colour-section-title">App Background</div>
+<div class="colour-grid">
+  <div class="colour-row">
+    <span class="colour-row-label">Background</span>
+    <div style="position:relative;">
+      <div class="colour-swatch" id="sw-bg"></div>
+      <input type="color" id="cp-bg" title="Background colour"/>
+    </div>
+  </div>
+  <div class="colour-row">
+    <span class="colour-row-label">Card surface</span>
+    <div style="position:relative;">
+      <div class="colour-swatch" id="sw-surface"></div>
+      <input type="color" id="cp-surface" title="Card colour"/>
+    </div>
+  </div>
+</div>
+
+<!-- Accent colours -->
+<div class="colour-section-title">Accent Colours (ring, progress bar, active tab)</div>
+<div class="colour-grid">
+  <div class="colour-row">
+    <span class="colour-row-label">Accent 1</span>
+    <div style="position:relative;">
+      <div class="colour-swatch" id="sw-a1"></div>
+      <input type="color" id="cp-a1"/>
+    </div>
+  </div>
+  <div class="colour-row">
+    <span class="colour-row-label">Accent 2</span>
+    <div style="position:relative;">
+      <div class="colour-swatch" id="sw-a2"></div>
+      <input type="color" id="cp-a2"/>
+    </div>
+  </div>
+</div>
+
+<!-- Category colours -->
+<div class="colour-section-title">Category Colours</div>
+<div class="colour-grid" id="cat-colour-grid"></div>
+
+<button class="reset-btn" id="reset-colours">↩ Reset all to defaults</button>
+```
+
+  </div>
+
+  <!-- SKINCARE EDITOR -->
+
+  <div id="skin-section">
+    <div class="skin-section-title">🧴 Skincare Schedule</div>
+    <div class="skin-month-tabs" id="skin-month-tabs"></div>
+    <div class="skin-day-grid" id="skin-day-grid"></div>
+  </div>
+
   <div id="view-content"></div>
 </div>
 
 <script>
+// ═══════════════════════════════════════════
+//  DEFAULT DATA
+// ═══════════════════════════════════════════
 const DEFAULT_HABITS=[
   {id:"h1",name:"Drink 2L water",category:"health",icon:"💧",color:"#38bdf8"},
   {id:"h2",name:"Sleep 7-8 hrs",category:"health",icon:"🌙",color:"#818cf8"},
@@ -214,93 +416,635 @@ const DEFAULT_HABITS=[
   {id:"l4",name:"Digital detox time",category:"life",icon:"🌅",color:"#fde68a"},
   {id:"l5",name:"Learn something new",category:"life",icon:"🧠",color:"#818cf8"},
 ];
-const CATEGORIES={
-  health:{label:"Health",icon:"🫀",color:"#38bdf8"},
-  fitness:{label:"Fitness",icon:"💪",color:"#f87171"},
-  religion:{label:"Faith",icon:"✝️",color:"#fde68a"},
+
+const DEFAULT_CATS={
+  health:      {label:"Health",      icon:"🫀",color:"#38bdf8"},
+  fitness:     {label:"Fitness",     icon:"💪",color:"#f87171"},
+  religion:    {label:"Faith",       icon:"✝️", color:"#fde68a"},
   productivity:{label:"Productivity",icon:"🎯",color:"#4ade80"},
-  work:{label:"Work",icon:"💼",color:"#60a5fa"},
-  life:{label:"Life",icon:"🌱",color:"#f472b6"},
+  work:        {label:"Work",        icon:"💼",color:"#60a5fa"},
+  life:        {label:"Life",        icon:"🌱",color:"#f472b6"},
 };
-const SKINCARE={
-  "2026-02-22":{product:"VT Collagen 300",series:"VT Reedle Shot - 300 Series",color:"#fb923c",rest:false},
-  "2026-02-23":{product:"Medicube Azelaic 7500",series:"Medicube - Exosome Shot",color:"#fbbf24",rest:false},
+
+const DEFAULT_THEME={
+  bg:"#070710", surface:"#0f0f1e",
+  accent1:"#818cf8", accent2:"#f472b6",
+  catHealth:"#38bdf8", catFitness:"#f87171",
+  catReligion:"#fde68a", catProductivity:"#4ade80",
+  catWork:"#60a5fa", catLife:"#f472b6",
+};
+
+const THEMES=[
+  {name:"Cosmic",emoji:"🌌",bg:"#070710",surface:"#0f0f1e",accent1:"#818cf8",accent2:"#f472b6",catHealth:"#38bdf8",catFitness:"#f87171",catReligion:"#fde68a",catProductivity:"#4ade80",catWork:"#60a5fa",catLife:"#f472b6"},
+  {name:"Forest",emoji:"🌿",bg:"#050f0a",surface:"#0c1a10",accent1:"#4ade80",accent2:"#34d399",catHealth:"#6ee7b7",catFitness:"#86efac",catReligion:"#fde68a",catProductivity:"#4ade80",catWork:"#22d3ee",catLife:"#a3e635"},
+  {name:"Sunset",emoji:"🌅",bg:"#100808",surface:"#1a0f0f",accent1:"#fb923c",accent2:"#f87171",catHealth:"#fbbf24",catFitness:"#f87171",catReligion:"#fde68a",catProductivity:"#fb923c",catWork:"#f472b6",catLife:"#e879f9"},
+  {name:"Ocean",emoji:"🌊",bg:"#030d14",surface:"#071520",accent1:"#22d3ee",accent2:"#38bdf8",catHealth:"#22d3ee",catFitness:"#60a5fa",catReligion:"#a5f3fc",catProductivity:"#34d399",catWork:"#818cf8",catLife:"#67e8f9"},
+  {name:"Candy",emoji:"🍬",bg:"#0f0010",surface:"#190020",accent1:"#e879f9",accent2:"#f472b6",catHealth:"#f472b6",catFitness:"#fb7185",catReligion:"#fde68a",catProductivity:"#c084fc",catWork:"#a78bfa",catLife:"#e879f9"},
+  {name:"Gold",emoji:"✨",bg:"#0d0900",surface:"#1a1200",accent1:"#fbbf24",accent2:"#fb923c",catHealth:"#fde68a",catFitness:"#fbbf24",catReligion:"#fde68a",catProductivity:"#a3e635",catWork:"#fb923c",catLife:"#f472b6"},
+];
+
+const DEFAULT_SKINCARE={
+  "2026-02-22":{product:"VT Collagen 300",series:"VT Reedle Shot — 300 Series",color:"#fb923c",rest:false},
+  "2026-02-23":{product:"Medicube Azelaic 7500",series:"Medicube — Exosome Shot",color:"#fbbf24",rest:false},
   "2026-02-24":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-02-25":{product:"VT PDRN 300",series:"VT Reedle Shot - 300 Series",color:"#34d399",rest:false},
-  "2026-02-26":{product:"VT Red Booster 100",series:"VT Reedle Shot - 100 Series",color:"#f87171",rest:false},
+  "2026-02-25":{product:"VT PDRN 300",series:"VT Reedle Shot — 300 Series",color:"#34d399",rest:false},
+  "2026-02-26":{product:"VT Red Booster 100",series:"VT Reedle Shot — 100 Series",color:"#f87171",rest:false},
   "2026-02-27":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-02-28":{product:"Medicube Exosome One Day",series:"Medicube - Exosome Shot",color:"#22d3ee",rest:false},
-  "2026-03-01":{product:"VT Reti-A 300",series:"VT Reedle Shot - 300 Series",color:"#e879f9",rest:false},
+  "2026-02-28":{product:"Medicube Exosome One Day",series:"Medicube — Exosome Shot",color:"#22d3ee",rest:false},
+  "2026-03-01":{product:"VT Reti-A 300",series:"VT Reedle Shot — 300 Series",color:"#e879f9",rest:false},
   "2026-03-02":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-03":{product:"VT Pro Cica 100",series:"VT Reedle Shot - 100 Series",color:"#818cf8",rest:false},
-  "2026-03-04":{product:"Medicube Azelaic 7500",series:"Medicube - Exosome Shot",color:"#fbbf24",rest:false},
+  "2026-03-03":{product:"VT Pro Cica 100",series:"VT Reedle Shot — 100 Series",color:"#818cf8",rest:false},
+  "2026-03-04":{product:"Medicube Azelaic 7500",series:"Medicube — Exosome Shot",color:"#fbbf24",rest:false},
   "2026-03-05":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-06":{product:"VT Collagen 300",series:"VT Reedle Shot - 300 Series",color:"#fb923c",rest:false},
-  "2026-03-07":{product:"Medicube PDRN 2000",series:"Medicube - Exosome Shot",color:"#a78bfa",rest:false},
+  "2026-03-06":{product:"VT Collagen 300",series:"VT Reedle Shot — 300 Series",color:"#fb923c",rest:false},
+  "2026-03-07":{product:"Medicube PDRN 2000",series:"Medicube — Exosome Shot",color:"#a78bfa",rest:false},
   "2026-03-08":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-09":{product:"Medicube Exosome One Day",series:"Medicube - Exosome Shot",color:"#22d3ee",rest:false},
-  "2026-03-10":{product:"VT PDRN 300",series:"VT Reedle Shot - 300 Series",color:"#34d399",rest:false},
+  "2026-03-09":{product:"Medicube Exosome One Day",series:"Medicube — Exosome Shot",color:"#22d3ee",rest:false},
+  "2026-03-10":{product:"VT PDRN 300",series:"VT Reedle Shot — 300 Series",color:"#34d399",rest:false},
   "2026-03-11":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-12":{product:"VT Red Booster 100",series:"VT Reedle Shot - 100 Series",color:"#f87171",rest:false},
-  "2026-03-13":{product:"Medicube Azelaic 7500",series:"Medicube - Exosome Shot",color:"#fbbf24",rest:false},
+  "2026-03-12":{product:"VT Red Booster 100",series:"VT Reedle Shot — 100 Series",color:"#f87171",rest:false},
+  "2026-03-13":{product:"Medicube Azelaic 7500",series:"Medicube — Exosome Shot",color:"#fbbf24",rest:false},
   "2026-03-14":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-15":{product:"VT Reti-A 300",series:"VT Reedle Shot - 300 Series",color:"#e879f9",rest:false},
-  "2026-03-16":{product:"VT Pro Cica 100",series:"VT Reedle Shot - 100 Series",color:"#818cf8",rest:false},
+  "2026-03-15":{product:"VT Reti-A 300",series:"VT Reedle Shot — 300 Series",color:"#e879f9",rest:false},
+  "2026-03-16":{product:"VT Pro Cica 100",series:"VT Reedle Shot — 100 Series",color:"#818cf8",rest:false},
   "2026-03-17":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-18":{product:"Medicube Exosome One Day",series:"Medicube - Exosome Shot",color:"#22d3ee",rest:false},
-  "2026-03-19":{product:"VT Collagen 300",series:"VT Reedle Shot - 300 Series",color:"#fb923c",rest:false},
+  "2026-03-18":{product:"Medicube Exosome One Day",series:"Medicube — Exosome Shot",color:"#22d3ee",rest:false},
+  "2026-03-19":{product:"VT Collagen 300",series:"VT Reedle Shot — 300 Series",color:"#fb923c",rest:false},
   "2026-03-20":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-21":{product:"Medicube PDRN 2000",series:"Medicube - Exosome Shot",color:"#a78bfa",rest:false},
-  "2026-03-22":{product:"Medicube Azelaic 7500",series:"Medicube - Exosome Shot",color:"#fbbf24",rest:false},
+  "2026-03-21":{product:"Medicube PDRN 2000",series:"Medicube — Exosome Shot",color:"#a78bfa",rest:false},
+  "2026-03-22":{product:"Medicube Azelaic 7500",series:"Medicube — Exosome Shot",color:"#fbbf24",rest:false},
   "2026-03-23":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-24":{product:"VT PDRN 300",series:"VT Reedle Shot - 300 Series",color:"#34d399",rest:false},
-  "2026-03-25":{product:"VT Red Booster 100",series:"VT Reedle Shot - 100 Series",color:"#f87171",rest:false},
+  "2026-03-24":{product:"VT PDRN 300",series:"VT Reedle Shot — 300 Series",color:"#34d399",rest:false},
+  "2026-03-25":{product:"VT Red Booster 100",series:"VT Reedle Shot — 100 Series",color:"#f87171",rest:false},
   "2026-03-26":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-27":{product:"Medicube Exosome One Day",series:"Medicube - Exosome Shot",color:"#22d3ee",rest:false},
-  "2026-03-28":{product:"VT Reti-A 300",series:"VT Reedle Shot - 300 Series",color:"#e879f9",rest:false},
+  "2026-03-27":{product:"Medicube Exosome One Day",series:"Medicube — Exosome Shot",color:"#22d3ee",rest:false},
+  "2026-03-28":{product:"VT Reti-A 300",series:"VT Reedle Shot — 300 Series",color:"#e879f9",rest:false},
   "2026-03-29":{product:"REST",series:"No actives tonight",color:"#475569",rest:true},
-  "2026-03-30":{product:"VT Pro Cica 100",series:"VT Reedle Shot - 100 Series",color:"#818cf8",rest:false},
-  "2026-03-31":{product:"VT Collagen 300",series:"VT Reedle Shot - 300 Series",color:"#fb923c",rest:false},
+  "2026-03-30":{product:"VT Pro Cica 100",series:"VT Reedle Shot — 100 Series",color:"#818cf8",rest:false},
+  "2026-03-31":{product:"VT Collagen 300",series:"VT Reedle Shot — 300 Series",color:"#fb923c",rest:false},
 };
+
 const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
-let habits=JSON.parse(localStorage.getItem("dd_habits")||"null")||DEFAULT_HABITS;
-let completions=JSON.parse(localStorage.getItem("dd_completions")||"{}");
-let selectedCat="all",currentView="weekly",editMode=false;
-let weekRef=new Date(TODAY),monthRef={year:TODAY.getFullYear(),month:TODAY.getMonth()},focusDay=dk(TODAY);
-let editingHabitId=null;
-function save(){localStorage.setItem("dd_habits",JSON.stringify(habits));localStorage.setItem("dd_completions",JSON.stringify(completions));}
-function dk(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+let habits   = JSON.parse(localStorage.getItem("dd_habits")||"null")||DEFAULT_HABITS;
+let comps    = JSON.parse(localStorage.getItem("dd_comps")||"{}");
+let skincare = JSON.parse(localStorage.getItem("dd_skincare")||"null")||JSON.parse(JSON.stringify(DEFAULT_SKINCARE));
+let theme    = JSON.parse(localStorage.getItem("dd_theme")||"null")||JSON.parse(JSON.stringify(DEFAULT_THEME));
+let CATEGORIES = buildCats();
+
+let selCat="all",curView="weekly",editHabits=false,editSkin=false,showColours=false;
+let weekRef=new Date(TODAY),monthRef={y:TODAY.getFullYear(),m:TODAY.getMonth()},focusDay=dk(TODAY);
+let editingHId=null,editingSKey=null,skinMonthView=null;
+
+// ═══════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════
+function save(){
+  localStorage.setItem("dd_habits",JSON.stringify(habits));
+  localStorage.setItem("dd_comps",JSON.stringify(comps));
+  localStorage.setItem("dd_skincare",JSON.stringify(skincare));
+  localStorage.setItem("dd_theme",JSON.stringify(theme));
+}
+function dk(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function pad(n){return String(n).padStart(2,"0");}
 function todayKey(){return dk(TODAY);}
 function isFuture(k){return k>todayKey();}
-function getWeekDates(ref){const d=new Date(ref);d.setHours(0,0,0,0);const sun=new Date(d);sun.setDate(d.getDate()-d.getDay());return Array.from({length:7},(_,i)=>{const dd=new Date(sun);dd.setDate(sun.getDate()+i);return dd;});}
-function getMonthDates(y,m){const days=[],d=new Date(y,m,1);while(d.getMonth()===m){days.push(new Date(d));d.setDate(d.getDate()+1);}return days;}
-function calcStreak(id){let s=0;const d=new Date(TODAY);while(true){const k=dk(d);if(completions[k]&&completions[k][id]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
-function fh(){return selectedCat==="all"?habits:habits.filter(h=>h.category===selectedCat);}
-function toggle(hid,dateKey){if(editMode)return;if(isFuture(dateKey))return;if(!completions[dateKey])completions[dateKey]={};completions[dateKey][hid]=!completions[dateKey][hid];if(!completions[dateKey][hid])delete completions[dateKey][hid];if(!Object.keys(completions[dateKey]).length)delete completions[dateKey];save();updateHeader();renderView();}
-function openEditModal(id){editingHabitId=id;const habit=habits.find(h=>h.id===id);if(!habit)return;document.getElementById("edit-icon").value=habit.icon;document.getElementById("edit-name").value=habit.name;document.getElementById("edit-cat").value=habit.category;document.getElementById("edit-modal").classList.add("open");}
-function closeEditModal(){document.getElementById("edit-modal").classList.remove("open");editingHabitId=null;}
-function saveEditModal(){if(!editingHabitId)return;const icon=document.getElementById("edit-icon").value||"⭐";const name=document.getElementById("edit-name").value.trim();const cat=document.getElementById("edit-cat").value;if(!name)return;habits=habits.map(h=>h.id===editingHabitId?{...h,icon,name,category:cat,color:CATEGORIES[cat].color}:h);save();closeEditModal();renderView();updateHeader();}
-function deleteFromModal(){if(!editingHabitId)return;habits=habits.filter(h=>h.id!==editingHabitId);save();closeEditModal();renderView();updateHeader();}
-document.getElementById("edit-save-btn").onclick=saveEditModal;
-document.getElementById("edit-cancel-btn").onclick=closeEditModal;
-document.getElementById("edit-delete-btn").onclick=deleteFromModal;
-document.getElementById("edit-modal").addEventListener("click",(e)=>{if(e.target===document.getElementById("edit-modal"))closeEditModal();});
-document.getElementById("edit-mode-btn").onclick=()=>{editMode=!editMode;document.getElementById("edit-mode-btn").classList.toggle("active",editMode);document.getElementById("edit-mode-btn").textContent=editMode?"✏️ Done":"✏️ Edit";document.getElementById("edit-banner").classList.toggle("visible",editMode);renderView();};
-function updateHeader(){const tk=todayKey();document.getElementById("date-display").textContent=DAYS[TODAY.getDay()]+", "+MONTHS[TODAY.getMonth()]+" "+TODAY.getDate()+" "+TODAY.getFullYear();const h_=fh(),dt=h_.filter(h=>completions[tk]?.[h.id]).length,tot=h_.length,pct=tot>0?Math.round(dt/tot*100):0,circ=2*Math.PI*22;document.getElementById("ring-progress").setAttribute("stroke-dashoffset",circ*(1-pct/100));document.getElementById("ring-progress").setAttribute("stroke",pct===100?"#4ade80":"#818cf8");document.getElementById("ring-pct").textContent=pct+"%";document.getElementById("ring-pct").style.color=pct===100?"#4ade80":"#e2e8f0";document.getElementById("today-sub").textContent=dt+"/"+tot+" today";const wd=getWeekDates(weekRef),wdn=wd.reduce((s,d)=>{const k=dk(d);return s+h_.filter(h=>completions[k]?.[h.id]).length;},0),wt=wd.length*h_.length,wp=wt>0?Math.round(wdn/wt*100):0;document.getElementById("week-pct").textContent=wp+"%";document.getElementById("week-sub").textContent=wdn+"/"+wt;const sc=SKINCARE[tk],el=document.getElementById("sc-tonight");if(sc){el.innerHTML='<div style="display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:7px 12px;margin-top:10px;background:'+sc.color+'18;border:1px solid '+sc.color+'40"><span style="font-size:14px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight</div><div style="font-size:12px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+'">'+sc.product+'</div><div style="font-size:10px;color:'+sc.color+'">'+sc.series+'</div></div></div>';}else{el.innerHTML="";}}
-function renderCatPills(){const el=document.getElementById("cat-pills");el.innerHTML="";const ab=document.createElement("button");ab.className="pill";ab.textContent="All";ab.style.cssText=selectedCat==="all"?"background:#e2e8f0;color:#0a0a0f":"background:rgba(255,255,255,0.06);color:#94a3b8";ab.onclick=()=>{selectedCat="all";renderCatPills();updateHeader();renderView();};el.appendChild(ab);Object.entries(CATEGORIES).forEach(([key,cat])=>{const b=document.createElement("button");b.className="pill";b.textContent=cat.icon+" "+cat.label;b.style.cssText=selectedCat===key?"background:"+cat.color+";color:#0a0a0f;border-color:"+cat.color:"background:rgba(255,255,255,0.06);color:#94a3b8";b.onclick=()=>{selectedCat=key;renderCatPills();updateHeader();renderView();};el.appendChild(b);});}
-function populateCatSelects(){["new-cat","edit-cat"].forEach(id=>{const sel=document.getElementById(id);sel.innerHTML="";Object.entries(CATEGORIES).forEach(([k,c])=>{const o=document.createElement("option");o.value=k;o.textContent=c.icon+" "+c.label;sel.appendChild(o);});});}
-function renderView(){const el=document.getElementById("view-content");el.className="fade-in";if(currentView==="weekly")el.innerHTML=buildWeekly();else if(currentView==="daily")el.innerHTML=buildDaily();else el.innerHTML=buildMonthly();attachEvents();}
-function buildWeekly(){const wd=getWeekDates(weekRef),tk=todayKey(),h_=fh(),cols="1fr repeat(7,minmax(34px,50px))";let h='<div class="nav-row"><button class="nav-btn" id="week-prev">← Prev</button><span class="nav-label">'+MONTHS[wd[0].getMonth()].slice(0,3)+" "+wd[0].getDate()+" - "+MONTHS[wd[6].getMonth()].slice(0,3)+" "+wd[6].getDate()+", "+wd[6].getFullYear()+'</span><button class="nav-btn" id="week-next">Next →</button></div><div class="week-grid"><div class="week-header-row" style="grid-template-columns:'+cols+'"><div class="week-col-label">Habit</div>';wd.forEach(d=>{const k=dk(d),isT=k===tk,sc=SKINCARE[k];h+='<div class="week-day-col" style="background:'+(isT?"rgba(129,140,248,0.12)":"transparent")+'"><div class="week-day-name" style="color:'+(isT?"#818cf8":"#475569")+'">'+DAYS[d.getDay()]+'</div><div class="week-day-num" style="color:'+(isT?"#818cf8":"#64748b")+'">'+d.getDate()+'</div>'+(sc?'<div class="week-day-sc" style="color:'+(sc.rest?"#334155":sc.color)+'">'+(sc.rest?"😴":sc.product.replace("Medicube ","M.").replace(" One Day",""))+'</div>':"")+'</div>';});h+="</div>";Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-header-row" style="grid-template-columns:'+cols+'"><div class="cat-label-cell" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+"</div>";wd.forEach(d=>{const k=dk(d),dn=ch.filter(x=>completions[k]?.[x.id]).length;h+='<div class="cat-count-cell" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';color:'+cat.color+'">'+(dn>0?dn+"/"+ch.length:"")+"</div>";});h+="</div>";ch.forEach((habit,idx)=>{const st=calcStreak(habit.id);h+='<div class="habit-row-g" style="grid-template-columns:'+cols+';background:'+(idx%2?"rgba(255,255,255,0.01)":"transparent")+'"><div class="habit-name-cell"><span class="habit-icon-s">'+habit.icon+'</span><div style="flex:1;min-width:0"><div class="habit-name-t">'+habit.name+"</div>"+(st>0?'<div class="habit-streak-t" style="color:'+habit.color+'">🔥 '+st+"d</div>":"")+'</div><div class="action-btns">'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'">✏️</button>':'')+'<button class="del-btn-sm" data-del="'+habit.id+'">✕</button></div></div>';wd.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),fut=isFuture(k);h+='<div class="check-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(k===tk?"rgba(129,140,248,0.06)":"transparent")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut||editMode?"default":"pointer")+'"><div class="check-box" style="background:'+(dn?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(dn?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(dn?"0 0 7px "+habit.color+"40":"none")+'">'+(dn?"✓":"")+"</div></div>";});h+="</div>";});});h+="</div>";return h;}
-function buildDaily(){const fd=new Date(focusDay+"T12:00:00"),tk=todayKey(),h_=fh(),fut=isFuture(focusDay),dn=h_.filter(h=>completions[focusDay]?.[h.id]).length,pct=h_.length>0?Math.round(dn/h_.length*100):0,sc=SKINCARE[focusDay];let h='<div class="nav-row"><button class="nav-btn" id="day-prev">← Prev</button><span class="nav-label">'+DAYS[fd.getDay()]+", "+MONTHS[fd.getMonth()]+" "+fd.getDate()+(focusDay===tk?' <span style="font-size:10px;background:rgba(129,140,248,0.2);color:#818cf8;padding:2px 7px;border-radius:9px">Today</span>':"")+'</span><button class="nav-btn" id="day-next">Next →</button></div><div class="progress-wrap"><div class="progress-meta"><span>Daily Progress</span><span style="font-weight:700;color:'+(pct===100?"#4ade80":"#e2e8f0")+'">'+dn+" / "+h_.length+" - "+pct+'%</span></div><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%;background:'+(pct===100?"#4ade80":"#818cf8")+'"></div></div></div>';if(sc){h+='<div class="sc-card" style="background:'+sc.color+'12;border:1px solid '+sc.color+'35"><span style="font-size:18px">🧴</span><div><div style="font-size:9px;color:'+sc.color+';font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Tonight\'s Skincare</div><div style="font-size:13px;font-weight:600;color:'+(sc.rest?"#475569":"#e2e8f0")+';margin-top:2px">'+sc.product+'</div><div style="font-size:11px;color:'+sc.color+';margin-top:1px">'+sc.series+"</div></div></div>";}Object.entries(CATEGORIES).forEach(([ck,cat])=>{const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;h+='<div class="cat-section"><div class="cat-section-title" style="color:'+cat.color+'">'+cat.icon+" "+cat.label+'</div><div class="daily-list">';ch.forEach(habit=>{const isDone=!!(completions[focusDay]?.[habit.id]),st=calcStreak(habit.id);h+='<div class="daily-row" style="opacity:'+(fut?0.4:1)+'"><div class="daily-check" data-toggle="'+habit.id+"|"+focusDay+'" style="background:'+(isDone?habit.color:"rgba(255,255,255,0.06)")+';border:1.5px solid '+(isDone?habit.color:"rgba(255,255,255,0.1)")+';box-shadow:'+(isDone?"0 0 10px "+habit.color+"50":"none")+';cursor:'+(fut||editMode?"default":"pointer")+'">'+(isDone?"✓":habit.icon)+'</div><div style="flex:1"><div style="font-size:13px;font-weight:500;color:'+(isDone?"#94a3b8":"#e2e8f0")+';text-decoration:'+(isDone?"line-through":"none")+'">'+habit.name+"</div>"+(st>0?'<div style="font-size:10px;color:'+habit.color+';margin-top:2px">🔥 '+st+"-day streak</div>":"")+'</div>'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'" style="margin-left:auto">✏️ Edit</button>':'<div class="daily-done-lbl" style="color:'+(isDone?"#4ade80":"#334155")+';margin-left:auto">'+(isDone?"Done":"")+"</div>")+"</div>";});h+="</div></div>";});return h;}
-function buildMonthly(){const md=getMonthDates(monthRef.year,monthRef.month),tk=todayKey(),h_=fh(),fd=new Date(monthRef.year,monthRef.month,1).getDay();let h='<div class="nav-row"><button class="nav-btn" id="month-prev">← Prev</button><span class="nav-label">'+MONTHS[monthRef.month]+" "+monthRef.year+'</span><button class="nav-btn" id="month-next">Next →</button></div>';h_.forEach(habit=>{const st=calcStreak(habit.id),mdn=md.filter(d=>completions[dk(d)]?.[habit.id]).length;h+='<div class="month-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:9px"><span style="font-size:16px">'+habit.icon+'</span><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#e2e8f0">'+habit.name+'</div><div style="font-size:10px;color:#475569;margin-top:1px"><span style="color:'+CATEGORIES[habit.category].color+'">'+CATEGORIES[habit.category].label+"</span>"+(st>0?'<span style="margin-left:7px">🔥 '+st+"-day streak</span>":"")+'<span style="margin-left:7px;color:#64748b">'+mdn+"/"+md.length+' this month</span></div></div>'+(editMode?'<button class="edit-btn-sm" data-edit="'+habit.id+'">✏️ Edit</button>':"")+'</div><div class="month-cal-grid">';DAYS.forEach(d=>{h+='<div class="month-day-lbl">'+d[0]+"</div>";});for(let i=0;i<fd;i++)h+="<div></div>";md.forEach(d=>{const k=dk(d),dn=!!(completions[k]?.[habit.id]),isT=k===tk,fut=isFuture(k);h+='<div class="month-day-cell" data-toggle="'+habit.id+"|"+k+'" style="background:'+(dn?habit.color:isT?"rgba(129,140,248,0.15)":"rgba(255,255,255,0.04)")+';border-color:'+(isT?"#818cf8":"transparent")+';color:'+(dn?"#0a0a0f":isT?"#818cf8":"#475569")+';opacity:'+(fut?0.22:1)+';cursor:'+(fut||editMode?"default":"pointer")+';box-shadow:'+(dn?"0 0 5px "+habit.color+"40":"none")+'">'+d.getDate()+"</div>";});h+="</div></div>";});return h;}
-function attachEvents(){document.querySelectorAll("[data-toggle]").forEach(el=>{el.addEventListener("click",()=>{if(editMode)return;const[hid,k]=el.dataset.toggle.split("|");toggle(hid,k);});});document.querySelectorAll("[data-edit]").forEach(el=>{el.addEventListener("click",(e)=>{e.stopPropagation();openEditModal(el.dataset.edit);});});document.querySelectorAll("[data-del]").forEach(el=>{el.addEventListener("click",(e)=>{e.stopPropagation();habits=habits.filter(h=>h.id!==el.dataset.del);save();renderView();updateHeader();});});const wp=document.getElementById("week-prev");if(wp)wp.onclick=()=>{weekRef.setDate(weekRef.getDate()-7);updateHeader();renderView();};const wn=document.getElementById("week-next");if(wn)wn.onclick=()=>{weekRef.setDate(weekRef.getDate()+7);updateHeader();renderView();};const dp=document.getElementById("day-prev");if(dp)dp.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()-1);focusDay=dk(d);renderView();};const dn2=document.getElementById("day-next");if(dn2)dn2.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()+1);focusDay=dk(d);renderView();};const mp=document.getElementById("month-prev");if(mp)mp.onclick=()=>{monthRef.month--;if(monthRef.month<0){monthRef.month=11;monthRef.year--;}renderView();};const mn=document.getElementById("month-next");if(mn)mn.onclick=()=>{monthRef.month++;if(monthRef.month>11){monthRef.month=0;monthRef.year++;}renderView();};}
-document.getElementById("view-tabs").addEventListener("click",(e)=>{const btn=e.target.closest(".view-tab");if(!btn)return;currentView=btn.dataset.view;document.querySelectorAll(".view-tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderView();});
-document.getElementById("add-habit-btn").onclick=()=>document.getElementById("add-panel").classList.add("open");
-document.getElementById("btn-add-cancel").onclick=()=>document.getElementById("add-panel").classList.remove("open");
-document.getElementById("btn-add-save").onclick=()=>{const name=document.getElementById("new-name").value.trim();if(!name)return;const cat=document.getElementById("new-cat").value,icon=document.getElementById("new-icon").value||"⭐";habits.push({id:"c_"+Date.now(),name,category:cat,icon,color:CATEGORIES[cat].color});save();document.getElementById("new-name").value="";document.getElementById("new-icon").value="⭐";document.getElementById("add-panel").classList.remove("open");renderView();updateHeader();};
-populateCatSelects();renderCatPills();updateHeader();renderView();
+function getWeekDates(ref){const d=new Date(ref);d.setHours(0,0,0,0);const s=new Date(d);s.setDate(d.getDate()-d.getDay());return Array.from({length:7},(_,i)=>{const dd=new Date(s);dd.setDate(s.getDate()+i);return dd;});}
+function getMonthDates(y,m){const a=[],d=new Date(y,m,1);while(d.getMonth()===m){a.push(new Date(d));d.setDate(d.getDate()+1);}return a;}
+function streak(id){let s=0;const d=new Date(TODAY);while(true){const k=dk(d);if(comps[k]&&comps[k][id]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
+function fh(){return selCat==="all"?habits:habits.filter(h=>h.category===selCat);}
+function toggle(hid,key){if(editHabits||editSkin||showColours)return;if(isFuture(key))return;if(!comps[key])comps[key]={};comps[key][hid]=!comps[key][hid];if(!comps[key][hid])delete comps[key][hid];if(!Object.keys(comps[key]).length)delete comps[key];save();updateHeader();renderView();}
+
+function buildCats(){
+  return {
+    health:      {label:"Health",      icon:"🫀",color:theme.catHealth},
+    fitness:     {label:"Fitness",     icon:"💪",color:theme.catFitness},
+    religion:    {label:"Faith",       icon:"✝️", color:theme.catReligion},
+    productivity:{label:"Productivity",icon:"🎯",color:theme.catProductivity},
+    work:        {label:"Work",        icon:"💼",color:theme.catWork},
+    life:        {label:"Life",        icon:"🌱",color:theme.catLife},
+  };
+}
+
+// ═══════════════════════════════════════════
+//  THEME ENGINE
+// ═══════════════════════════════════════════
+function applyTheme(t){
+  theme=Object.assign({},t);
+  CATEGORIES=buildCats();
+  const r=document.documentElement.style;
+  r.setProperty("--bg",theme.bg);
+  r.setProperty("--surface",theme.surface);
+  r.setProperty("--surface2",adjustBrightness(theme.surface,1.3));
+  r.setProperty("--accent1",theme.accent1);
+  r.setProperty("--accent2",theme.accent2);
+  r.setProperty("--cat-health",theme.catHealth);
+  r.setProperty("--cat-fitness",theme.catFitness);
+  r.setProperty("--cat-religion",theme.catReligion);
+  r.setProperty("--cat-productivity",theme.catProductivity);
+  r.setProperty("--cat-work",theme.catWork);
+  r.setProperty("--cat-life",theme.catLife);
+  // update ring gradient stops
+  const s1=document.getElementById("ring-stop1");
+  const s2=document.getElementById("ring-stop2");
+  if(s1)s1.setAttribute("stop-color",theme.accent1);
+  if(s2)s2.setAttribute("stop-color",theme.accent2);
+  save();
+  syncColourPickers();
+  renderCatPills();
+  updateHeader();
+  renderView();
+}
+
+function adjustBrightness(hex,factor){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  const nr=Math.min(255,Math.round(r*factor)),ng=Math.min(255,Math.round(g*factor)),nb=Math.min(255,Math.round(b*factor));
+  return "#"+[nr,ng,nb].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+
+function syncColourPickers(){
+  const map={
+    "cp-bg":"bg","cp-surface":"surface",
+    "cp-a1":"accent1","cp-a2":"accent2",
+    "cp-cat-health":"catHealth","cp-cat-fitness":"catFitness",
+    "cp-cat-religion":"catReligion","cp-cat-productivity":"catProductivity",
+    "cp-cat-work":"catWork","cp-cat-life":"catLife",
+  };
+  Object.entries(map).forEach(([id,key])=>{
+    const el=document.getElementById(id);
+    const sw=document.getElementById("sw-"+id.replace("cp-",""));
+    if(el)el.value=theme[key]||DEFAULT_THEME[key];
+    if(sw)sw.style.background=theme[key]||DEFAULT_THEME[key];
+  });
+}
+
+function buildColourPanel(){
+  // Category colour rows
+  const grid=document.getElementById("cat-colour-grid");
+  grid.innerHTML="";
+  const catMap=[
+    {label:"🫀 Health",key:"catHealth",cpId:"cp-cat-health",swId:"sw-cat-health"},
+    {label:"💪 Fitness",key:"catFitness",cpId:"cp-cat-fitness",swId:"sw-cat-fitness"},
+    {label:"✝️ Faith",key:"catReligion",cpId:"cp-cat-religion",swId:"sw-cat-religion"},
+    {label:"🎯 Productivity",key:"catProductivity",cpId:"cp-cat-productivity",swId:"sw-cat-productivity"},
+    {label:"💼 Work",key:"catWork",cpId:"cp-cat-work",swId:"sw-cat-work"},
+    {label:"🌱 Life",key:"catLife",cpId:"cp-cat-life",swId:"sw-cat-life"},
+  ];
+  catMap.forEach(({label,key,cpId,swId})=>{
+    const row=document.createElement("div");row.className="colour-row";
+    row.innerHTML=`<span class="colour-row-label">${label}</span>
+    <div style="position:relative;width:28px;height:28px;">
+      <div class="colour-swatch" id="${swId}" style="background:${theme[key]||DEFAULT_THEME[key]};width:28px;height:28px;"></div>
+      <input type="color" id="${cpId}" value="${theme[key]||DEFAULT_THEME[key]}" style="width:28px;height:28px;top:0;left:0;"/>
+    </div>`;
+    grid.appendChild(row);
+    document.getElementById(cpId).addEventListener("input",e=>{
+      theme[key]=e.target.value;
+      document.getElementById(swId).style.background=e.target.value;
+      applyTheme(theme);
+    });
+  });
+
+  // theme presets
+  const presetsEl=document.getElementById("theme-presets");
+  presetsEl.innerHTML="";
+  THEMES.forEach(t=>{
+    const btn=document.createElement("button");btn.className="theme-btn";
+    btn.style.cssText=`background:linear-gradient(135deg,${t.accent1},${t.accent2});color:#fff;border-color:transparent;`;
+    btn.textContent=t.emoji+" "+t.name;
+    btn.onclick=()=>applyTheme(t);
+    presetsEl.appendChild(btn);
+  });
+
+  // sync main pickers
+  syncColourPickers();
+
+  // wire up simple pickers
+  const simplePickers={
+    "cp-bg":"bg","cp-surface":"surface","cp-a1":"accent1","cp-a2":"accent2"
+  };
+  Object.entries(simplePickers).forEach(([id,key])=>{
+    const el=document.getElementById(id);
+    const swId="sw-"+id.replace("cp-","");
+    if(el){
+      el.addEventListener("input",e=>{
+        theme[key]=e.target.value;
+        const sw=document.getElementById(swId);
+        if(sw)sw.style.background=e.target.value;
+        applyTheme(theme);
+      });
+    }
+  });
+
+  // wire swatch clicks to open pickers
+  document.querySelectorAll(".colour-swatch").forEach(sw=>{
+    const picker=sw.nextElementSibling;
+    if(picker&&picker.type==="color") sw.onclick=()=>picker.click();
+  });
+}
+
+// ═══════════════════════════════════════════
+//  HEADER
+// ═══════════════════════════════════════════
+function updateHeader(){
+  const tk=todayKey();
+  document.getElementById("date-display").textContent=DAYS[TODAY.getDay()]+", "+MONTHS[TODAY.getMonth()]+" "+TODAY.getDate()+" "+TODAY.getFullYear();
+  const h_=fh();
+  const dt=h_.filter(h=>comps[tk]?.[h.id]).length,tot=h_.length,pct=tot>0?Math.round(dt/tot*100):0;
+  const circ=2*Math.PI*21;
+  document.getElementById("ring-arc").setAttribute("stroke-dashoffset",circ*(1-pct/100));
+  document.getElementById("ring-pct").textContent=pct+"%";
+  document.getElementById("ring-pct").style.color=pct===100?"#4ade80":"var(--text)";
+  document.getElementById("today-sub").textContent=dt+"/"+tot+" today";
+  const wd=getWeekDates(weekRef);
+  const wdn=wd.reduce((s,d)=>{const k=dk(d);return s+h_.filter(h=>comps[k]?.[h.id]).length;},0);
+  const wt=wd.length*h_.length,wp=wt>0?Math.round(wdn/wt*100):0;
+  document.getElementById("week-pct").textContent=wp+"%";
+  document.getElementById("week-sub").textContent=wdn+"/"+wt;
+  const sc=skincare[tk],el=document.getElementById("sc-tonight");
+  if(sc){
+    el.innerHTML=`<div style="display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:6px 11px;background:${sc.color}18;border:1px solid ${sc.color}40;margin-top:8px;">
+      <span style="font-size:13px">🧴</span>
+      <div>
+        <div style="font-size:8px;color:${sc.color};font-weight:800;text-transform:uppercase;letter-spacing:0.8px;">Tonight</div>
+        <div style="font-size:11px;font-weight:700;color:${sc.rest?"#475569":"var(--text)"}">${sc.product}</div>
+        <div style="font-size:9px;color:${sc.color};opacity:0.8">${sc.series}</div>
+      </div>
+    </div>`;
+  } else el.innerHTML="";
+}
+
+function renderCatPills(){
+  const el=document.getElementById("cat-pills");el.innerHTML="";
+  const ab=document.createElement("button");ab.className="pill";ab.textContent="All";
+  ab.style.cssText=selCat==="all"?"background:#e2e8f0;color:#0a0a0f;font-weight:800":"background:rgba(255,255,255,0.06);color:#64748b";
+  ab.onclick=()=>{selCat="all";renderCatPills();updateHeader();renderView();};
+  el.appendChild(ab);
+  Object.entries(CATEGORIES).forEach(([key,cat])=>{
+    const b=document.createElement("button");b.className="pill";b.textContent=cat.icon+" "+cat.label;
+    b.style.cssText=selCat===key?`background:${cat.color};color:#0a0a0f;border-color:${cat.color};font-weight:800`:"background:rgba(255,255,255,0.05);color:#64748b";
+    b.onclick=()=>{selCat=key;renderCatPills();updateHeader();renderView();};
+    el.appendChild(b);
+  });
+}
+
+function populateCatSels(){
+  ["new-cat","h-cat"].forEach(id=>{
+    const s=document.getElementById(id);s.innerHTML="";
+    Object.entries(CATEGORIES).forEach(([k,c])=>{const o=document.createElement("option");o.value=k;o.textContent=c.icon+" "+c.label;s.appendChild(o);});
+  });
+}
+
+// ═══════════════════════════════════════════
+//  HABIT MODAL
+// ═══════════════════════════════════════════
+function openHabitModal(id){
+  editingHId=id;
+  const h=habits.find(x=>x.id===id);if(!h)return;
+  document.getElementById("h-icon").value=h.icon;
+  document.getElementById("h-name").value=h.name;
+  document.getElementById("h-cat").value=h.category;
+  document.getElementById("h-color").value=h.color||"#818cf8";
+  document.getElementById("h-color-swatch").style.background=h.color||"#818cf8";
+  document.getElementById("habit-modal").classList.add("open");
+}
+function closeHabitModal(){document.getElementById("habit-modal").classList.remove("open");editingHId=null;}
+function saveHabitModal(){
+  if(!editingHId)return;
+  const icon=document.getElementById("h-icon").value||"⭐";
+  const name=document.getElementById("h-name").value.trim();if(!name)return;
+  const cat=document.getElementById("h-cat").value;
+  const color=document.getElementById("h-color").value;
+  habits=habits.map(h=>h.id===editingHId?{...h,icon,name,category:cat,color}:h);
+  save();closeHabitModal();renderView();updateHeader();
+}
+document.getElementById("h-color").addEventListener("input",e=>{
+  document.getElementById("h-color-swatch").style.background=e.target.value;
+});
+document.getElementById("h-color-swatch").onclick=()=>document.getElementById("h-color").click();
+document.getElementById("h-save").onclick=saveHabitModal;
+document.getElementById("h-cancel").onclick=closeHabitModal;
+document.getElementById("h-delete").onclick=()=>{if(!editingHId)return;habits=habits.filter(h=>h.id!==editingHId);save();closeHabitModal();renderView();updateHeader();};
+document.getElementById("habit-modal").addEventListener("click",e=>{if(e.target===document.getElementById("habit-modal"))closeHabitModal();});
+
+// ═══════════════════════════════════════════
+//  SKINCARE MODAL
+// ═══════════════════════════════════════════
+function openSkinModal(key){
+  editingSKey=key;
+  const sc=skincare[key]||{product:"",series:"",color:"#818cf8",rest:false};
+  const d=new Date(key+"T12:00:00");
+  document.getElementById("skin-modal-date").textContent=DAYS[d.getDay()]+", "+MONTHS[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear();
+  document.getElementById("sk-product").value=sc.product;
+  document.getElementById("sk-series").value=sc.series;
+  document.getElementById("sk-color").value=sc.color;
+  document.getElementById("sk-rest").checked=!!sc.rest;
+  document.getElementById("skin-modal").classList.add("open");
+}
+function closeSkinModal(){document.getElementById("skin-modal").classList.remove("open");editingSKey=null;}
+function saveSkinModal(){
+  if(!editingSKey)return;
+  skincare[editingSKey]={
+    product:document.getElementById("sk-product").value.trim()||"REST",
+    series:document.getElementById("sk-series").value.trim(),
+    color:document.getElementById("sk-color").value,
+    rest:document.getElementById("sk-rest").checked
+  };
+  save();closeSkinModal();updateHeader();renderSkinEditor();renderView();
+}
+document.getElementById("sk-save").onclick=saveSkinModal;
+document.getElementById("sk-cancel").onclick=closeSkinModal;
+document.getElementById("skin-modal").addEventListener("click",e=>{if(e.target===document.getElementById("skin-modal"))closeSkinModal();});
+
+// ═══════════════════════════════════════════
+//  SKINCARE EDITOR
+// ═══════════════════════════════════════════
+function skinMonths(){
+  const ms=new Set();
+  Object.keys(skincare).forEach(k=>{const d=new Date(k+"T12:00:00");ms.add(d.getFullYear()+"-"+pad(d.getMonth()+1));});
+  return [...ms].sort();
+}
+function renderSkinEditor(){
+  const months=skinMonths();
+  if(!skinMonthView||!months.includes(skinMonthView))skinMonthView=months[0];
+  const tabEl=document.getElementById("skin-month-tabs");tabEl.innerHTML="";
+  months.forEach(ym=>{
+    const[y,m]=ym.split("-");
+    const btn=document.createElement("button");btn.className="skin-month-tab";
+    btn.textContent=MONTHS[parseInt(m)-1]+" "+y;
+    const active=ym===skinMonthView;
+    btn.style.cssText=active?"background:#f472b6;color:#0a0a0f;border-color:#f472b6":"background:rgba(255,255,255,0.05);color:var(--muted);border-color:var(--border)";
+    btn.onclick=()=>{skinMonthView=ym;renderSkinEditor();};
+    tabEl.appendChild(btn);
+  });
+  const grid=document.getElementById("skin-day-grid");grid.innerHTML="";
+  const[sy,sm]=skinMonthView.split("-");
+  Object.keys(skincare).filter(k=>{const d=new Date(k+"T12:00:00");return d.getFullYear()===parseInt(sy)&&d.getMonth()===parseInt(sm)-1;}).sort().forEach(key=>{
+    const sc=skincare[key],d=new Date(key+"T12:00:00");
+    const card=document.createElement("div");card.className="skin-day-card";
+    card.style.borderColor=`${sc.color}40`;
+    card.innerHTML=`<div class="skin-day-date" style="color:${sc.color}">${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)}</div>
+    <div class="skin-day-product" style="color:${sc.rest?"#475569":"var(--text)"}">${sc.product}</div>
+    <div class="skin-day-series" style="color:${sc.color}">${sc.series}</div>
+    <div class="skin-edit-icon">✏️</div>`;
+    card.onclick=()=>openSkinModal(key);
+    grid.appendChild(card);
+  });
+  const addCard=document.createElement("div");addCard.className="skin-day-card";
+  addCard.style.cssText="border-style:dashed;border-color:rgba(244,114,182,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:80px;";
+  addCard.innerHTML=`<div style="text-align:center;color:#f472b6;font-size:11px;font-weight:700;">＋ Add day</div>`;
+  addCard.onclick=()=>{const input=prompt("Enter date (YYYY-MM-DD):");if(!input||!/^\d{4}-\d{2}-\d{2}$/.test(input))return;if(!skincare[input])skincare[input]={product:"New Product",series:"Series name",color:"#818cf8",rest:false};save();renderSkinEditor();openSkinModal(input);};
+  grid.appendChild(addCard);
+}
+
+// ═══════════════════════════════════════════
+//  TOOLBAR EVENTS
+// ═══════════════════════════════════════════
+document.getElementById("btn-edit-habits").onclick=()=>{
+  editHabits=!editHabits;
+  if(editHabits){editSkin=false;showColours=false;document.getElementById("colour-panel").classList.remove("open");document.getElementById("skin-section").classList.remove("open");document.getElementById("btn-colours").classList.remove("on");document.getElementById("btn-edit-skin").classList.remove("on");document.getElementById("banner-skin").classList.remove("visible");}
+  document.getElementById("btn-edit-habits").classList.toggle("on",editHabits);
+  document.getElementById("banner-habits").classList.toggle("visible",editHabits);
+  renderView();
+};
+document.getElementById("btn-edit-skin").onclick=()=>{
+  editSkin=!editSkin;
+  if(editSkin){editHabits=false;showColours=false;document.getElementById("colour-panel").classList.remove("open");document.getElementById("btn-colours").classList.remove("on");document.getElementById("btn-edit-habits").classList.remove("on");document.getElementById("banner-habits").classList.remove("visible");}
+  document.getElementById("btn-edit-skin").classList.toggle("on",editSkin);
+  document.getElementById("banner-skin").classList.toggle("visible",editSkin);
+  const sec=document.getElementById("skin-section");
+  if(editSkin){sec.classList.add("open");renderSkinEditor();}else sec.classList.remove("open");
+  renderView();
+};
+document.getElementById("btn-colours").onclick=()=>{
+  showColours=!showColours;
+  if(showColours){editHabits=false;editSkin=false;document.getElementById("skin-section").classList.remove("open");document.getElementById("btn-edit-habits").classList.remove("on");document.getElementById("btn-edit-skin").classList.remove("on");document.getElementById("banner-habits").classList.remove("visible");document.getElementById("banner-skin").classList.remove("visible");buildColourPanel();}
+  document.getElementById("btn-colours").classList.toggle("on",showColours);
+  document.getElementById("colour-panel").classList.toggle("open",showColours);
+  renderView();
+};
+document.getElementById("colour-close").onclick=()=>{
+  showColours=false;
+  document.getElementById("btn-colours").classList.remove("on");
+  document.getElementById("colour-panel").classList.remove("open");
+};
+document.getElementById("reset-colours").onclick=()=>{
+  if(confirm("Reset all colours to defaults?")){applyTheme(DEFAULT_THEME);buildColourPanel();}
+};
+document.getElementById("btn-add-habit").onclick=()=>document.getElementById("add-panel").classList.add("open");
+document.getElementById("btn-new-cancel").onclick=()=>document.getElementById("add-panel").classList.remove("open");
+document.getElementById("btn-new-save").onclick=()=>{
+  const name=document.getElementById("new-name").value.trim();if(!name)return;
+  const cat=document.getElementById("new-cat").value,icon=document.getElementById("new-icon").value||"⭐";
+  habits.push({id:"c_"+Date.now(),name,category:cat,icon,color:CATEGORIES[cat].color});
+  save();document.getElementById("new-name").value="";document.getElementById("new-icon").value="⭐";
+  document.getElementById("add-panel").classList.remove("open");
+  renderView();updateHeader();
+};
+
+// ═══════════════════════════════════════════
+//  VIEW TABS
+// ═══════════════════════════════════════════
+document.getElementById("view-tabs").addEventListener("click",e=>{
+  const btn=e.target.closest(".view-tab");if(!btn)return;
+  curView=btn.dataset.view;
+  document.querySelectorAll(".view-tab").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");renderView();
+});
+
+function renderView(){
+  const el=document.getElementById("view-content");el.className="fade-in";
+  populateCatSels();
+  if(curView==="weekly")el.innerHTML=buildWeekly();
+  else if(curView==="daily")el.innerHTML=buildDaily();
+  else el.innerHTML=buildMonthly();
+  attachEvents();
+}
+
+// ═══════════════════════════════════════════
+//  BUILD VIEWS
+// ═══════════════════════════════════════════
+function buildWeekly(){
+  const wd=getWeekDates(weekRef),tk=todayKey(),h_=fh();
+  const cols="minmax(100px,1.4fr) repeat(7,minmax(30px,46px))";
+  let h=`<div class="nav-row">
+    <button class="nav-btn" id="week-prev">← Prev</button>
+    <span class="nav-label">${MONTHS[wd[0].getMonth()].slice(0,3)} ${wd[0].getDate()} – ${MONTHS[wd[6].getMonth()].slice(0,3)} ${wd[6].getDate()}</span>
+    <button class="nav-btn" id="week-next">Next →</button>
+  </div><div class="week-grid"><div class="week-header-row" style="grid-template-columns:${cols}"><div class="week-col-label">Habit</div>`;
+  wd.forEach(d=>{
+    const k=dk(d),isT=k===tk,sc=skincare[k];
+    h+=`<div class="week-day-col" style="background:${isT?`color-mix(in srgb,${theme.accent1} 10%,transparent)`:"transparent"}">
+      <div class="week-day-name" style="color:${isT?theme.accent1:"#475569"}">${DAYS[d.getDay()]}</div>
+      <div class="week-day-num" style="color:${isT?theme.accent2:"#64748b"}">${d.getDate()}</div>
+      ${sc?`<div class="week-day-sc" style="color:${sc.rest?"#334155":sc.color}">${sc.rest?"😴":sc.product.replace("Medicube ","M.").replace(" One Day","").replace("VT ","")}</div>`:""}
+      ${editSkin&&sc?`<div style="text-align:center;margin-top:2px"><button class="btn-skin-xs" data-sk="${k}" style="font-size:7px;padding:1px 4px">✏️</button></div>`:""}
+    </div>`;
+  });
+  h+="</div>";
+  Object.entries(CATEGORIES).forEach(([ck,cat])=>{
+    const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;
+    h+=`<div class="cat-header-row" style="grid-template-columns:${cols};background:${cat.color}0a">
+      <div class="cat-label-cell" style="color:${cat.color}">${cat.icon} ${cat.label}</div>`;
+    wd.forEach(d=>{
+      const k=dk(d),dn=ch.filter(x=>comps[k]?.[x.id]).length;
+      h+=`<div class="cat-count-cell" style="color:${cat.color}">${dn>0?dn+"/"+ch.length:""}</div>`;
+    });
+    h+="</div>";
+    ch.forEach(habit=>{
+      const st=streak(habit.id);
+      h+=`<div class="habit-row-g" style="grid-template-columns:${cols}">
+        <div class="habit-name-cell">
+          <span class="habit-icon-s">${habit.icon}</span>
+          <div style="flex:1;min-width:0">
+            <div class="habit-name-t">${habit.name}</div>
+            ${st>0?`<div class="habit-streak-t" style="color:${habit.color}">🔥${st}d</div>`:""}
+          </div>
+          <div class="action-btns">
+            ${editHabits?`<button class="btn-edit-xs" data-edit="${habit.id}">✏️</button>`:""}
+            <button class="btn-del-xs" data-del="${habit.id}">✕</button>
+          </div>
+        </div>`;
+      wd.forEach(d=>{
+        const k=dk(d),done=!!(comps[k]?.[habit.id]),fut=isFuture(k);
+        h+=`<div class="check-cell" data-toggle="${habit.id}|${k}" style="opacity:${fut?0.2:1};cursor:${fut||editHabits||editSkin||showColours?"default":"pointer"}">
+          <div class="check-box" style="background:${done?habit.color:"rgba(255,255,255,0.05)"};border:1.5px solid ${done?habit.color:"rgba(255,255,255,0.08)"};box-shadow:${done?`0 0 8px ${habit.color}50`:"none"};color:${done?"#0a0a0f":"transparent"}">${done?"✓":""}</div>
+        </div>`;
+      });
+      h+="</div>";
+    });
+  });
+  h+="</div>";return h;
+}
+
+function buildDaily(){
+  const fd=new Date(focusDay+"T12:00:00"),tk=todayKey(),h_=fh(),fut=isFuture(focusDay);
+  const dn=h_.filter(h=>comps[focusDay]?.[h.id]).length,pct=h_.length>0?Math.round(dn/h_.length*100):0;
+  const sc=skincare[focusDay];
+  const grad=pct===100?`linear-gradient(90deg,#34d399,#22d3ee)`:`linear-gradient(90deg,${theme.accent1},${theme.accent2})`;
+  let h=`<div class="nav-row">
+    <button class="nav-btn" id="day-prev">← Prev</button>
+    <span class="nav-label">${DAYS[fd.getDay()]}, ${MONTHS[fd.getMonth()]} ${fd.getDate()}${focusDay===tk?` <span style="font-size:10px;background:color-mix(in srgb,${theme.accent1} 20%,transparent);color:${theme.accent1};padding:2px 8px;border-radius:10px;font-weight:800">Today</span>`:""}</span>
+    <button class="nav-btn" id="day-next">Next →</button>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span style="color:var(--muted);font-weight:600;font-size:12px">Daily Progress</span>
+      <span style="font-weight:800;color:${pct===100?"#34d399":"var(--text)"};">${dn} / ${h_.length} — ${pct}%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${grad}"></div></div>
+  </div>`;
+  if(sc){
+    h+=`<div class="sc-card-big" style="background:${sc.color}10;border:1px solid ${sc.color}30">
+      <span style="font-size:22px">🧴</span>
+      <div style="flex:1">
+        <div style="font-size:9px;color:${sc.color};font-weight:800;text-transform:uppercase;letter-spacing:0.8px">Tonight's Skincare</div>
+        <div style="font-size:14px;font-weight:800;color:${sc.rest?"#475569":"var(--text)"};margin-top:2px">${sc.product}</div>
+        <div style="font-size:11px;color:${sc.color};margin-top:1px">${sc.series}</div>
+      </div>
+      ${editSkin?`<button class="btn-skin-xs" data-sk="${focusDay}" style="padding:5px 10px;font-size:11px;">✏️ Edit</button>`:""}
+    </div>`;
+  }
+  Object.entries(CATEGORIES).forEach(([ck,cat])=>{
+    const ch=h_.filter(x=>x.category===ck);if(!ch.length)return;
+    h+=`<div class="cat-section">
+      <div class="cat-section-title" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
+      <div class="daily-list">`;
+    ch.forEach(habit=>{
+      const isDone=!!(comps[focusDay]?.[habit.id]),st=streak(habit.id);
+      h+=`<div class="daily-row">
+        <div class="daily-check" data-toggle="${habit.id}|${focusDay}" style="background:${isDone?habit.color:"rgba(255,255,255,0.05)"};border:1.5px solid ${isDone?habit.color:"rgba(255,255,255,0.08)"};box-shadow:${isDone?`0 0 12px ${habit.color}50`:"none"};cursor:${fut||editHabits||editSkin||showColours?"default":"pointer"}">${isDone?"✓":habit.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:${isDone?"#5a5a8a":"var(--text)"};text-decoration:${isDone?"line-through":"none"}">${habit.name}</div>
+          ${st>0?`<div style="font-size:10px;color:${habit.color};margin-top:2px;font-weight:700">🔥 ${st}-day streak</div>`:""}
+        </div>
+        <div class="action-btns">${editHabits?`<button class="btn-edit-xs" data-edit="${habit.id}">✏️ Edit</button>`:""}</div>
+        <div style="font-size:10px;font-weight:800;color:${isDone?"#34d399":"#2a2a4a"};margin-left:auto">${isDone&&!editHabits?"Done":""}</div>
+      </div>`;
+    });
+    h+=`</div></div>`;
+  });
+  return h;
+}
+
+function buildMonthly(){
+  const md=getMonthDates(monthRef.y,monthRef.m),tk=todayKey(),h_=fh();
+  const fd=new Date(monthRef.y,monthRef.m,1).getDay();
+  let h=`<div class="nav-row">
+    <button class="nav-btn" id="month-prev">← Prev</button>
+    <span class="nav-label">${MONTHS[monthRef.m]} ${monthRef.y}</span>
+    <button class="nav-btn" id="month-next">Next →</button>
+  </div>`;
+  h_.forEach(habit=>{
+    const st=streak(habit.id),mdn=md.filter(d=>comps[dk(d)]?.[habit.id]).length;
+    h+=`<div class="month-card" style="border-top:2px solid ${habit.color}50">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:18px">${habit.icon}</span>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:700;color:var(--text)">${habit.name}</div>
+          <div style="font-size:10px;margin-top:1px;display:flex;gap:8px;flex-wrap:wrap">
+            <span style="color:${CATEGORIES[habit.category].color};font-weight:700">${CATEGORIES[habit.category].label}</span>
+            ${st>0?`<span style="color:${habit.color};font-weight:700">🔥 ${st}d streak</span>`:""}
+            <span style="color:var(--muted);font-weight:600">${mdn}/${md.length} this month</span>
+          </div>
+        </div>
+        ${editHabits?`<button class="btn-edit-xs" data-edit="${habit.id}" style="padding:4px 8px">✏️ Edit</button>`:""}
+      </div>
+      <div class="month-cal-grid">`;
+    DAYS.forEach(d=>{h+=`<div class="month-day-lbl">${d[0]}</div>`;});
+    for(let i=0;i<fd;i++)h+="<div></div>";
+    md.forEach(d=>{
+      const k=dk(d),done=!!(comps[k]?.[habit.id]),isT=k===tk,fut=isFuture(k);
+      h+=`<div class="month-day-cell" data-toggle="${habit.id}|${k}"
+        style="background:${done?habit.color:isT?habit.color+"22":"rgba(255,255,255,0.03)"};
+        border-color:${isT?habit.color:"transparent"};
+        color:${done?"#0a0a0f":isT?habit.color:"#3a3a5a"};
+        opacity:${fut?0.18:1};cursor:${fut||editHabits||editSkin||showColours?"default":"pointer"};
+        box-shadow:${done?`0 0 6px ${habit.color}50`:"none"}">${d.getDate()}</div>`;
+    });
+    h+="</div></div>";
+  });
+  return h;
+}
+
+// ═══════════════════════════════════════════
+//  EVENTS
+// ═══════════════════════════════════════════
+function attachEvents(){
+  document.querySelectorAll("[data-toggle]").forEach(el=>{
+    el.addEventListener("click",()=>{if(editHabits||editSkin||showColours)return;const[hid,k]=el.dataset.toggle.split("|");toggle(hid,k);});
+  });
+  document.querySelectorAll("[data-edit]").forEach(el=>{
+    el.addEventListener("click",e=>{e.stopPropagation();openHabitModal(el.dataset.edit);});
+  });
+  document.querySelectorAll("[data-del]").forEach(el=>{
+    el.addEventListener("click",e=>{e.stopPropagation();habits=habits.filter(h=>h.id!==el.dataset.del);save();renderView();updateHeader();});
+  });
+  document.querySelectorAll("[data-sk]").forEach(el=>{
+    el.addEventListener("click",e=>{e.stopPropagation();openSkinModal(el.dataset.sk);});
+  });
+  const wp=document.getElementById("week-prev");if(wp)wp.onclick=()=>{weekRef.setDate(weekRef.getDate()-7);updateHeader();renderView();};
+  const wn=document.getElementById("week-next");if(wn)wn.onclick=()=>{weekRef.setDate(weekRef.getDate()+7);updateHeader();renderView();};
+  const dp=document.getElementById("day-prev");if(dp)dp.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()-1);focusDay=dk(d);renderView();};
+  const dn2=document.getElementById("day-next");if(dn2)dn2.onclick=()=>{const d=new Date(focusDay+"T12:00:00");d.setDate(d.getDate()+1);focusDay=dk(d);renderView();};
+  const mp=document.getElementById("month-prev");if(mp)mp.onclick=()=>{monthRef.m--;if(monthRef.m<0){monthRef.m=11;monthRef.y--;}renderView();};
+  const mn=document.getElementById("month-next");if(mn)mn.onclick=()=>{monthRef.m++;if(monthRef.m>11){monthRef.m=0;monthRef.y++;}renderView();};
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+applyTheme(theme);
+populateCatSels();
+renderCatPills();
+updateHeader();
+renderView();
 </script>
+
 </body>
 </html>
